@@ -1,0 +1,22 @@
+// Made by LSH
+
+#pragma once
+#include "NativeGameplayTags.h"
+
+namespace HSPlayerGameplayTags
+{
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(HSPlayer_State_Move);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(HSPlayer_State_Look);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(HSPlayer_State_Sprint);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(HSPlayer_State_Interact);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(HSPlayer_State_SitDown);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(HSPlayer_State_Zoom);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(HSPlayer_State_Flash);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(HSPlayer_State_FlashLock);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(HSPlayer_State_Die);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(HSPlayer_State_Chased);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(HSPlayer_State_HeartBeat);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(HSPlayer_State_Report);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(HSPlayer_State_ESC);
+	UE_DECLARE_GAMEPLAY_TAG_EXTERN(HSPlayer_State_Fear);
+}

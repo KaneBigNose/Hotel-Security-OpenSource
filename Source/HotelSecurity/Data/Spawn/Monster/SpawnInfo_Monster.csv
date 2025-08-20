@@ -1,0 +1,12 @@
+Row,Number,Name,MonsterName,Map_En,Map_Ko,LocationX,LocationY,LocationZ,SpawnDuration,Path
+1,1,BellyMan,BellyMan,Hotel,호텔,-3325,710,155,500,/Game/HotelSecurity/AI/Blueprint/BellyMan/BP_BellyMan.BP_BellyMan_C
+2,2,BlackVeil,BlackVeil,Hotel,호텔,-3770,2125,150,1500,/Game/HotelSecurity/AI/Blueprint/BlackVeil/BP_BlackVeil.BP_BlackVeil_C
+3,3,HotelManager,HotelManager,Hotel,호텔,4195,630,125,1200,/Game/HotelSecurity/AI/Blueprint/HotelManager/BP_HotelManager.BP_HotelManager_C
+4,1,Miner,Miner,Mine,광산,-4538,-781,152,400,/Game/HotelSecurity/AI/Blueprint/Miner/BP_Miner.BP_Miner_C
+5,2,Miner,Miner,Mine,광산,-3932,-6082,154,400,/Game/HotelSecurity/AI/Blueprint/Miner/BP_Miner.BP_Miner_C
+6,3,BlackVeil,BlackVeil,Mine,광산,-34,-1207,165,1500,/Game/HotelSecurity/AI/Blueprint/BlackVeil/BP_BlackVeil.BP_BlackVeil_C
+7,4,HangingBody,HangingBody,Mine,광산,-34,-1207,165,0,/Game/HotelSecurity/AI/Blueprint/HangingBody/BP_HangingBody.BP_HangingBody_C
+8,1,Nurse,Nurse,Hospital,병원,-270,790,1290,1,/Game/HotelSecurity/AI/Blueprint/Nurse/BP_Nurse1.BP_Nurse1_C
+9,2,Nurse,Nurse,Hospital,병원,-270,790,150,1,/Game/HotelSecurity/AI/Blueprint/Nurse/BP_Nurse2.BP_Nurse2_C
+10,3,Melodia,Melodia,Hospital,병원,-270,790,1290,800,/Game/HotelSecurity/AI/Blueprint/Melodia/BP_Melodia.BP_Melodia_C
+11,4,PlagueDoctor,PlagueDoctor,Hospital,병원,-270,790,1290,1200,/Game/HotelSecurity/AI/Blueprint/PlagueDoctor/BP_PlagueDoctor.BP_PlagueDoctor_C

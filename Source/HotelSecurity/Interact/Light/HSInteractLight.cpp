@@ -1,4 +1,4 @@
-// Made by LSH
+﻿// Made by LSH
 
 #include "Interact/Light/HSInteractLight.h"
 #include "Components/SphereComponent.h"
@@ -6,7 +6,8 @@
 
 #pragma region Base
 
-AHSInteractLight::AHSInteractLight()
+AHSInteractLight::AHSInteractLight(const FObjectInitializer& ObjectInitializer)
+	:Super(ObjectInitializer)
 {
 	InteractRange->SetRelativeLocation(FVector(0, 0, 25));
 	InteractRange->SetSphereRadius(60.f);
@@ -21,9 +22,9 @@ AHSInteractLight::AHSInteractLight()
 
 #pragma region Interact
 
-void AHSInteractLight::PlayerInteractThisObject()
+void AHSInteractLight::InteractThisObject()
 {
-	Super::PlayerInteractThisObject();
+	Super::InteractThisObject();
 
 	if (PointLight->bAffectsWorld)
 	{

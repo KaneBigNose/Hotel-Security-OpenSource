@@ -1,4 +1,4 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+﻿// Copyright Epic Games, Inc. All Rights Reserved.
 
 using UnrealBuildTool;
 
@@ -17,10 +17,11 @@ public class Hotel_Security : ModuleRules
 			"EnhancedInput",
             "AIModule",
 			"GameplayTasks",
-			"MovieScene",
+			"GameplayTags",
+            "GameplayAbilities",
+            "MovieScene",
 			"LevelSequence",
 			"NavigationSystem",
-			"GameplayTags",
 			"UMG",
 			"Niagara",
             "AdvancedWidgets"

@@ -1,4 +1,0 @@
-Name,MonsterName,LocationX,LocationY,LocationZ,RotationX,RotationY,RotationZ,Path
-1,BellyMan,-3325,710,155,0,0,0,/Script/Engine.Blueprint'/Game/HotelSecurity/AI/Blueprint/BellyMan/BP_HSBellyMan.BP_HSBellyMan_C'
-2,BlackVeil,-3770,2125,150,0,0,0,/Script/Engine.Blueprint'/Game/HotelSecurity/AI/Blueprint/BlackVeil/BP_BlackVeil.BP_BlackVeil_C'
-3,HotelManager,4195,630,125,0,0,0,/Script/Engine.Blueprint'/Game/HotelSecurity/AI/Blueprint/HotelManager/BP_HotelManager.BP_HotelManager_C'

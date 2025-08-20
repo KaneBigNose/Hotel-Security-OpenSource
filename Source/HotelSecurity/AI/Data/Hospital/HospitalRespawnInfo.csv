@@ -1,6 +1,0 @@
-Name,MonsterName,LocationX,LocationY,LocationZ,RotationX,RotationY,RotationZ,Path
-1,Nurse1,-270,790,1290,0,0,0,/Script/Engine.Blueprint'/Game/HotelSecurity/AI/Blueprint/Nurse/BP_Nurse1.BP_Nurse1_C'
-2,Nurse2,-270,790,150,0,0,0,/Script/Engine.Blueprint'/Game/HotelSecurity/AI/Blueprint/Nurse/BP_Nurse2.BP_Nurse2_C'
-3,PlagueDoctor1,-270,790,1290,0,0,0,/Script/Engine.Blueprint'/Game/HotelSecurity/AI/Blueprint/PlagueDoctor/BP_PlagueDoctor.BP_PlagueDoctor_C'
-4,Melodia,-270,790,1290,0,0,0,/Script/Engine.Blueprint'/Game/HotelSecurity/AI/Blueprint/Melodia/BP_Melodia.BP_Melodia_C'
-5,PlagueDoctor2,-270,790,150,0,0,0,/Script/Engine.Blueprint'/Game/HotelSecurity/AI/Blueprint/PlagueDoctor/BP_PlagueDoctor.BP_PlagueDoctor_C'

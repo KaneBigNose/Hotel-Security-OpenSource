@@ -1,4 +1,4 @@
-// Made by LSH
+﻿// Made by LSH
 
 #pragma once
 
@@ -14,25 +14,25 @@ class HOTEL_SECURITY_API AHSInteractLight : public AHSInteractObjectBase
 #pragma region Base
 
 public:
-	AHSInteractLight();
+	AHSInteractLight(const FObjectInitializer& ObjectInitializer);
 
 #pragma endregion
 
 #pragma region Interact
 
 public:
-	virtual void PlayerInteractThisObject() override;
+	virtual void InteractThisObject() override;
 
 #pragma endregion
 
 #pragma region Light
 
-protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interact")
-	class UPointLightComponent* PointLight;
-
 public:
-	bool LightIsTurned() { return !bIsInteracted; }
+	bool IsLightTurnOn() { return !bIsInteracted; }
+
+protected:
+	UPROPERTY(EditAnywhere, Category = "Interact")
+	TObjectPtr<class UPointLightComponent> PointLight;
 
 #pragma endregion
 

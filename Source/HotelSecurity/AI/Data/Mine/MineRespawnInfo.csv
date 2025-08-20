@@ -1,5 +1,0 @@
-Name,MonsterName,LocationX,LocationY,LocationZ,RotationX,RotationY,RotationZ,Path
-1,Miner1,-4538,-781,152,0,0,0,/Script/Engine.Blueprint'/Game/HotelSecurity/AI/Blueprint/Miner/BP_Miner.BP_Miner_C'
-2,Miner2,-3932,-6082,154,0,0,0,/Script/Engine.Blueprint'/Game/HotelSecurity/AI/Blueprint/Miner/BP_Miner.BP_Miner_C'
-3,HangingBody,-34,-1207,165,0,0,0,/Script/Engine.Blueprint'/Game/HotelSecurity/AI/Blueprint/HangingBody/BP_HangingBody.BP_HangingBody_C'
-4,BlackVeil,-34,-1207,165,0,0,0,/Script/Engine.Blueprint'/Game/HotelSecurity/AI/Blueprint/BlackVeil/BP_BlackVeil.BP_BlackVeil_C'

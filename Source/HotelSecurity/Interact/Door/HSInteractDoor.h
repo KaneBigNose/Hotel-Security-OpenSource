@@ -1,45 +1,56 @@
-// Made by LSH
+﻿// Made by LSH
 
 #pragma once
 
 #include "CoreMinimal.h"
 #include "Interact/HSInteractObjectBase.h"
-#include "Interact/Door/Interface/HSInteractDoorInterface.h"
 #include "HSInteractDoor.generated.h"
 
 UCLASS()
-class HOTEL_SECURITY_API AHSInteractDoor : public AHSInteractObjectBase, public IHSInteractDoorInterface
+class HOTEL_SECURITY_API AHSInteractDoor : public AHSInteractObjectBase
 {
 	GENERATED_BODY()
 	
 #pragma region Base
 
 public:
-	AHSInteractDoor();
-
-protected:
-	virtual void BeginPlay() override;
-
-	virtual void Tick(float DeltaTime) override;
+	AHSInteractDoor(const FObjectInitializer& ObjectInitializer);
 
 #pragma endregion
 
 #pragma region Interact
 
 public:
-	virtual void PlayerInteractThisObject() override;
+	virtual void InteractThisObject() override;
+
+	void RotateDoor(FRotator CurrentRotation, FRotator TargetRotation);
 
 public:
-	bool DoorIsRotated() { return bIsInteracted; }
-
-protected:
-	FRotator CurrentRotation;
-	FRotator DestinationRotation;
-
 	bool bIsRotating = false;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interact")
-	float RotateValue = 90;
+protected:
+	FTimerHandle RotateHandle;
+
+	bool bCanInteract = true;
+
+#pragma endregion
+
+#pragma region Lock
+
+public:
+	void SetDoorLock();
+
+protected:
+	void TryDoorUnlock();
+
+protected:
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<class UStaticMeshComponent> LockMesh;
+
+	UPROPERTY(EditAnywhere, Category = "Interact")
+	TObjectPtr<class USoundWave> DoorUnLockSound;
+
+	bool bIsDoorLock = false;
 
 #pragma endregion
 

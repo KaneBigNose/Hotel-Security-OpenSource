@@ -1,4 +1,4 @@
-// Made by LSH
+﻿// Made by LSH
 
 #include "Interact/HSInteractObjectBase.h"
 #include "Components/SphereComponent.h"
@@ -6,27 +6,30 @@
 
 #pragma region Base
 
-AHSInteractObjectBase::AHSInteractObjectBase()
+AHSInteractObjectBase::AHSInteractObjectBase(const FObjectInitializer& ObjectInitializer)
+	:Super(ObjectInitializer)
 {
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
 	InteractObject = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("InteractObject"));
-	RootComponent = InteractObject;
 	InteractObject->SetRelativeScale3D(FVector(2, 2, 1.5f));
-	InteractObject->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
+	InteractObject->SetCollisionResponseToChannel(ECC_Visibility, ECR_Ignore);
+
+	SetRootComponent(InteractObject);
 
 	InteractRange = CreateDefaultSubobject<USphereComponent>(TEXT("InteractRange"));
 	InteractRange->SetupAttachment(RootComponent);
+	InteractRange->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
 
-	InteractAudioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("InteractAudioComponent"));
-	InteractAudioComponent->SetupAttachment(RootComponent);
+	InteractAC = CreateDefaultSubobject<UAudioComponent>(TEXT("InteractAudioComponent"));
+	InteractAC->SetupAttachment(RootComponent);
 }
 
 #pragma endregion
 
 #pragma region Interact
 
-void AHSInteractObjectBase::PlayerInteractThisObject()
+void AHSInteractObjectBase::InteractThisObject()
 {
 	bIsInteracted = !bIsInteracted;
 
@@ -35,8 +38,8 @@ void AHSInteractObjectBase::PlayerInteractThisObject()
 		return;
 	}
 
-	InteractAudioComponent->Sound = InteractSound;
-	InteractAudioComponent->Play(0.f);
+	InteractAC->Sound = InteractSound;
+	InteractAC->Play(0.f);
 }
 
 #pragma endregion

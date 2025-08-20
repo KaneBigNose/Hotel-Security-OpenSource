@@ -1,0 +1,10 @@
+Row,Number,Name,Group,Path
+1,1,MainMenu,BGM,/AssetContent/Sound/BGM/BGM_MainMenu.BGM_MainMenu
+2,2,Normal,BGM,/AssetContent/Sound/BGM/BGM_Normal.BGM_Normal
+3,3,Chased,BGM,/AssetContent/Sound/BGM/BGM_Chased.BGM_Chased
+4,4,HeartBeat,BGM,/AssetContent/Sound/BGM/BGM_HeartBeat.BGM_HeartBeat
+5,5,GameClear,BGM,/AssetContent/Sound/BGM/BGM_GameClear.BGM_GameClear
+6,6,GameOver,BGM,/AssetContent/Sound/BGM/BGM_GameOver.BGM_GameOver
+7,7,ReportResult,BGM,/AssetContent/Sound/BGM/BGM_Result.BGM_Result
+8,8,Occurrence,Anomaly,/AssetContent/Sound/UI/Anomaly_Occurrence.Anomaly_Occurrence
+9,9,Warning,Anomaly,/AssetContent/Sound/UI/Anomaly_Warning.Anomaly_Warning

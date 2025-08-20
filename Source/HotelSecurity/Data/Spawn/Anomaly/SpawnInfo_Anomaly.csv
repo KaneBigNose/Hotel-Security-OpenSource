@@ -1,0 +1,86 @@
+Row,Number,Map_En,Map_Ko,Object_En,Object_Ko,Place_En,Place_Ko,LocationX,LocationY,LocationZ,RotationX,RotationY,RotationZ,CLocationX,CLocationY,CLocationZ,Path
+1,1,Hotel,호텔,Ashtrays,재떨이,Corridor,복도,-1800,2235,116,0,0,0,-1855,2235,116,/Game/HotelSecurity/Anomaly/Hotel/Corridor/BP_Ashtrays.BP_Ashtrays_C
+2,2,Hotel,호텔,Bathtub,욕조,Private,객실,-735,2730,0,0,0,180,-735,2960,0,/Game/HotelSecurity/Anomaly/Hotel/Private/BP_Bathtub.BP_Bathtub_C
+3,3,Hotel,호텔,BookShelf,책꽂이,Corridor,복도,4135,255,5,0,0,180,4225,255,5,/Game/HotelSecurity/Anomaly/Hotel/Corridor/BP_BookShelf.BP_BookShelf_C
+4,4,Hotel,호텔,Bust (Ballerina),발레리나 조각상,Corridor,복도,1160,-835,115,0,0,0,1220,-835,115,/Game/HotelSecurity/Anomaly/Hotel/Corridor/BP_Bust_Ballerina.BP_Bust_Ballerina_C
+5,5,Hotel,호텔,Bust (Horse),말 조각상,Corridor,복도,-2155,840,115,0,0,-90,-2135,820,115,/Game/HotelSecurity/Anomaly/Hotel/Corridor/BP_Bust_Horse.BP_Bust_Horse_C
+6,6,Hotel,호텔,Bust (Man),인물 조각상,Corridor,복도,1600,100,115,0,0,0,1600,115,115,/Game/HotelSecurity/Anomaly/Hotel/Corridor/BP_Bust_Man.BP_Bust_Man_C
+7,7,Hotel,호텔,CandleStick,촛대,Corridor,복도,450,1640,115,0,0,90,450,1580,115,/Game/HotelSecurity/Anomaly/Hotel/Corridor/BP_CandleStick.BP_CandleStick_C
+8,8,Hotel,호텔,Chess,체스말,Reception,접견실,3370,-2390,90,0,0,0,3385,-2380,90,/Game/HotelSecurity/Anomaly/Hotel/Reception/BP_Chess.BP_Chess_C
+9,9,Hotel,호텔,Clock,시계,Corridor,복도,1910,2095,5,0,0,90,1910,1835,5,/Game/HotelSecurity/Anomaly/Hotel/Corridor/BP_Clock.BP_Clock_C
+10,10,Hotel,호텔,Cloth,천,Private,객실,-2800,2735,0,0,0,0,-2720,2875,0,/Game/HotelSecurity/Anomaly/Hotel/Private/BP_Cloth.BP_Cloth_C
+11,11,Hotel,호텔,Covered Dressor,덮힌 서랍장,Private,객실,-2400,1435,5,0,0,180,-2400,1605,5,/Game/HotelSecurity/Anomaly/Hotel/Private/BP_Dressor_Covered.BP_Dressor_Covered_C
+12,12,Hotel,호텔,Cup,컵,Reception,접견실,2625,-3125,100,0,0,0,2675,-3125,100,/Game/HotelSecurity/Anomaly/Hotel/Reception/BP_Cup.BP_Cup_C
+13,13,Hotel,호텔,Dressor,서랍장,Private,객실,-2740,35,5,0,0,90,-2740,-175,5,/Game/HotelSecurity/Anomaly/Hotel/Private/BP_Dressor.BP_Dressor_C
+14,14,Hotel,호텔,Gramophone,축음기,Reception,접견실,3290,-2390,90,0,0,0,3260,-2390,90,/Game/HotelSecurity/Anomaly/Hotel/Reception/BP_Gramophone.BP_Gramophone_C
+15,15,Hotel,호텔,Green Chair,초록색 의자,Private,객실,-1865,2770,0,0,0,-90,-1790,2665,0,/Game/HotelSecurity/Anomaly/Hotel/Private/BP_Chair_Green.BP_Chair_Green_C
+16,16,Hotel,호텔,Leather Chair,가죽 의자,Private,객실,-900,5,5,0,0,0,-960,5,5,/Game/HotelSecurity/Anomaly/Hotel/Private/BP_Chair_Leather.BP_Chair_Leather_C
+17,17,Hotel,호텔,Moving Table,이동식 테이블,Corridor,복도,-4350,775,5,0,0,-90,-4350,620,5,/Game/HotelSecurity/Anomaly/Hotel/Corridor/BP_Table_Moving.BP_Table_Moving_C
+18,18,Hotel,호텔,NewsPaper,신문,Reception,접견실,2505,-2745,90,0,0,0,2525,-2720,90,/Game/HotelSecurity/Anomaly/Hotel/Reception/BP_NewsPaper.BP_NewsPaper_C
+19,19,Hotel,호텔,Office Chair,사무실 의자,Private,객실,-2155,2760,0,0,0,180,-2250,2840,0,/Game/HotelSecurity/Anomaly/Hotel/Private/BP_Chair_Office.BP_Chair_Office_C
+20,20,Hotel,호텔,Pen,볼펜,Reception,접견실,2515,-2805,90,0,0,90,2470,-2805,90,/Game/HotelSecurity/Anomaly/Hotel/Reception/BP_Pen.BP_Pen_C
+21,21,Hotel,호텔,Phone,전화기,Reception,접견실,2495,-2640,65,0,0,90,2485,-2660,65,/Game/HotelSecurity/Anomaly/Hotel/Reception/BP_Phone.BP_Phone_C
+22,22,Hotel,호텔,Picture A,그림 A,Corridor,복도,-3075,895,255,0,0,-90,-3075,895,270,/Game/HotelSecurity/Anomaly/Hotel/Corridor/Picture/BP_Picture_A.BP_Picture_A_C
+23,23,Hotel,호텔,Picture B,그림 B,Corridor,복도,340,680,255,0,0,180,340,680,270,/Game/HotelSecurity/Anomaly/Hotel/Corridor/Picture/BP_Picture_B.BP_Picture_B_C
+24,24,Hotel,호텔,Picture C,그림 C,Corridor,복도,390,205,255,0,0,0,390,205,270,/Game/HotelSecurity/Anomaly/Hotel/Corridor/Picture/BP_Picture_C.BP_Picture_C_C
+25,25,Hotel,호텔,Picture D,그림 D,Corridor,복도,-4430,2100,255,0,0,0,-4430,2100,270,/Game/HotelSecurity/Anomaly/Hotel/Corridor/Picture/BP_Picture_D.BP_Picture_D_C
+26,26,Hotel,호텔,Reception Sign,접대실 표식,Corridor,복도,2990,-2275,315,0,0,0,2990,-2255,315,/Game/HotelSecurity/Anomaly/Hotel/Corridor/BP_Sign_Reception.BP_Sign_Reception_C
+27,27,Hotel,호텔,Rose Flower,장미꽃,Reception,접견실,2790,-3125,105,0,0,0,2800,-3115,105,/Game/HotelSecurity/Anomaly/Hotel/Reception/BP_Flower_Rose.BP_Flower_Rose_C
+28,28,Hotel,호텔,Round Table,둥근 테이블,Private,객실,1405,-1335,5,0,0,0,1405,-1165,5,/Game/HotelSecurity/Anomaly/Hotel/Private/BP_Table_Round.BP_Table_Round_C
+29,29,Hotel,호텔,Small Picture,작은 그림,Private,객실,-405,-15,175,0,0,0,-405,-75,175,/Game/HotelSecurity/Anomaly/Hotel/Private/BP_Picture_Small.BP_Picture_Small_C
+30,30,Hotel,호텔,Sofa,소파,Private,객실,4115,1400,5,0,0,180,4115,1515,5,/Game/HotelSecurity/Anomaly/Hotel/Private/BP_Sofa.BP_Sofa_C
+31,31,Hotel,호텔,Square Table,사각 테이블,Private,객실,1850,-205,5,0,0,0,1865,-205,5,/Game/HotelSecurity/Anomaly/Hotel/Private/BP_Table_Square.BP_Table_Square_C
+32,32,Hotel,호텔,Table Picture,테이블 그림,Corridor,복도,-1135,570,115,0,0,0,-1165,570,115,/Game/HotelSecurity/Anomaly/Hotel/Corridor/BP_Picture_Table.BP_Picture_Table_C
+33,33,Hotel,호텔,Toilet,변기,Private,객실,1320,1410,5,0,0,-90,1295,1290,5,/Game/HotelSecurity/Anomaly/Hotel/Private/BP_Toilet.BP_Toilet_C
+34,34,Hotel,호텔,TV,텔레비전,Private,객실,-3190,2790,0,0,0,180,-3300,2590,0,/Game/HotelSecurity/Anomaly/Hotel/Private/BP_TV.BP_TV_C
+35,35,Hotel,호텔,Vase,항아리,Corridor,복도,-2780,2240,115,0,0,0,-2850,2240,115,/Game/HotelSecurity/Anomaly/Hotel/Corridor/BP_Vase.BP_Vase_C
+36,36,Hotel,호텔,White Flower,하얀꽃,Private,객실,-470,1655,5,0,0,0,-350,1585,5,/Game/HotelSecurity/Anomaly/Hotel/Private/BP_Flower_White.BP_Flower_White_C
+37,1,Mine,광산,Barrel,드럼통,Zone Yellow,노란 구역,1620,-3400,0,0,0,0,2100,-3400,0,/Game/HotelSecurity/Anomaly/Mine/Zone_Yellow/BP_Barrel.BP_Barrel_C
+38,2,Mine,광산,Boxes,박스 뭉치,Zone Green,초록 구역,-3730,-2290,0,0,0,0,-3930,-2290,20,/Game/HotelSecurity/Anomaly/Mine/Zone_Green/BP_Boxes.BP_Boxes_C
+39,3,Mine,광산,Brick,벽돌,Zone White,하얀 구역,3090,970,10,0,0,-90,3090,1050,0,/Game/HotelSecurity/Anomaly/Mine/Zone_White/BP_Brick.BP_Brick_C
+40,4,Mine,광산,Bricks,벽돌 뭉치,Zone Yellow,노란 구역,500,-7370,0,0,0,0,560,-6920,0,/Game/HotelSecurity/Anomaly/Mine/Zone_Yellow/BP_Bricks.BP_Bricks_C
+41,5,Mine,광산,Cable Reel,케이블 릴,Zone Green,초록 구역,-4060,-6480,0,0,0,0,-3710,-6480,0,/Game/HotelSecurity/Anomaly/Mine/Zone_Green/BP_CableReel.BP_CableReel_C
+42,6,Mine,광산,Concrete Bag,콘크리트 포대,Zone White,하얀 구역,3100,710,10,0,0,-90,2840,710,10,/Game/HotelSecurity/Anomaly/Mine/Zone_White/BP_ConcreteBag.BP_ConcreteBag_C
+43,7,Mine,광산,Concrete Bricks,콘크리트 벽돌 뭉치,Zone Red,붉은 구역,-3420,-990,0,0,0,0,-4540,-400,0,/Game/HotelSecurity/Anomaly/Mine/Zone_Red/BP_ConcreteBricks.BP_ConcreteBricks_C
+44,8,Mine,광산,Concrete Mixer,콘크리트 믹서,Zone White,하얀 구역,2050,-900,0,0,0,-90,1640,-1020,0,/Game/HotelSecurity/Anomaly/Mine/Zone_White/BP_ConcreteMixer.BP_ConcreteMixer_C
+45,9,Mine,광산,Concrete Pipe,콘크리트 파이프,Zone White,하얀 구역,1620,1040,10,90,0,0,2130,1040,10,/Game/HotelSecurity/Anomaly/Mine/Zone_White/BP_ConcretePipe.BP_ConcretePipe_C
+46,10,Mine,광산,Crate,나무 상자,Zone Red,붉은 구역,-2480,-1520,0,0,0,0,-3280,-1520,0,/Game/HotelSecurity/Anomaly/Mine/Zone_Red/BP_Crate.BP_Crate_C
+47,11,Mine,광산,Dumpster,쓰레기통,Zone Yellow,노란 구역,3150,-7030,0,0,0,0,2520,-7030,0,/Game/HotelSecurity/Anomaly/Mine/Zone_Yellow/BP_Dumpster.BP_Dumpster_C
+48,12,Mine,광산,Gas Tank,가스 탱크,Zone Green,초록 구역,-490,-5520,0,0,0,0,-1050,-5260,0,/Game/HotelSecurity/Anomaly/Mine/Zone_Green/BP_GasTank.BP_GasTank_C
+49,13,Mine,광산,Ladder,사다리,Zone Red,붉은 구역,-4200,1020,0,0,0,0,-3720,1020,0,/Game/HotelSecurity/Anomaly/Mine/Zone_Red/BP_Ladder.BP_Ladder_C
+50,14,Mine,광산,Light Generater,빛 발전기,Zone Red,붉은 구역,-2830,2140,0,0,0,0,-2830,1680,0,/Game/HotelSecurity/Anomaly/Mine/Zone_Red/BP_LightGenerator.BP_LightGenerator_C
+51,15,Mine,광산,Paint Bucket,페인트 통,Zone Yellow,노란 구역,2180,-6110,0,0,0,0,1880,-5660,20,/Game/HotelSecurity/Anomaly/Mine/Zone_Yellow/BP_PaintBucket.BP_PaintBucket_C
+52,16,Mine,광산,Portable Toilet,이동식 화장실,Zone Green,초록 구역,-2440,-5080,0,0,0,-90,-3410,-5080,0,/Game/HotelSecurity/Anomaly/Mine/Zone_Green/BP_PortableToilet.BP_PortableToilet_C
+53,17,Mine,광산,Road Block,도로 차단 블록,Zone Red,붉은 구역,-540,960,0,0,0,0,-540,710,0,/Game/HotelSecurity/Anomaly/Mine/Zone_Red/BP_RoadBlock.BP_RoadBlock_C
+54,18,Mine,광산,Safety Helmet,안전모,Zone Green,초록 구역,-4220,-5380,0,0,0,-90,-4220,-5190,0,/Game/HotelSecurity/Anomaly/Mine/Zone_Green/BP_SafetyHelmet.BP_SafetyHelmet_C
+55,19,Mine,광산,Sand Cart,모래가 실린 카트,Zone White,하얀 구역,260,-470,0,0,0,-90,90,-470,0,/Game/HotelSecurity/Anomaly/Mine/Zone_White/BP_SandCart.BP_SandCart_C
+56,20,Mine,광산,Tarp,방수 천,Zone Yellow,노란 구역,240,-4070,10,0,0,0,-80,-4070,10,/Game/HotelSecurity/Anomaly/Mine/Zone_Yellow/BP_Tarp.BP_Tarp_C
+57,21,Mine,광산,Traffic Cone,교통 고깔,Zone Yellow,노란 구역,80,-1620,0,0,0,0,80,-2240,0,/Game/HotelSecurity/Anomaly/Mine/Zone_Yellow/BP_TrafficCone.BP_TrafficCone_C
+58,22,Mine,광산,Wire,전선,Zone Red,붉은 구역,-1350,1020,0,0,0,0,-1350,680,0,/Game/HotelSecurity/Anomaly/Mine/Zone_Red/BP_Wire.BP_Wire_C
+59,1,Hospital,병원,Bed,침대,Floor 2,2층,795,-450,1145,0,0,0,795,475,1145,/Game/HotelSecurity/Anomaly/Hospital/2F/BP_Bed_2F.BP_Bed_2F_C
+60,2,Hospital,병원,Bed,침대,Floor 3,3층,770,-550,2290,0,0,0,1130,-550,2290,/Game/HotelSecurity/Anomaly/Hospital/3F/BP_Bed_3F.BP_Bed_3F_C
+61,3,Hospital,병원,Bench,벤치,Floor 2,2층,-740,920,1140,0,0,-90,100,920,1140,/Game/HotelSecurity/Anomaly/Hospital/2F/BP_Bench.BP_Bench_C
+62,4,Hospital,병원,Chair,의자,Floor 2,2층,-680,115,1145,0,0,-90,-240,405,1145,/Game/HotelSecurity/Anomaly/Hospital/2F/BP_Chair.BP_Chair_C
+63,5,Hospital,병원,Desk,책상,Floor 1,1층,-1345,2115,0,0,0,-90,-910,2115,0,/Game/HotelSecurity/Anomaly/Hospital/1F/BP_Desk_1F.BP_Desk_1F_C
+64,6,Hospital,병원,Desk,책상,Floor 2,2층,770,2060,1150,0,0,0,1180,2690,1150,/Game/HotelSecurity/Anomaly/Hospital/2F/BP_Desk_2F.BP_Desk_2F_C
+65,7,Hospital,병원,Drawer,서랍,Floor 3,3층,790,2100,2290,0,0,90,405,2730,2290,/Game/HotelSecurity/Anomaly/Hospital/3F/BP_Drawer.BP_Drawer_C
+66,8,Hospital,병원,Exit Sign,출구 표시,Floor 1,1층,-150,-1818,330,0,90,-90,-625,-2078,330,/Game/HotelSecurity/Anomaly/Hospital/1F/BP_Sign_Exit_1F.BP_Sign_Exit_1F_C
+67,9,Hospital,병원,Exit Sign,출구 표시,Floor 3,3층,125,-2050,2645,0,90,-90,-335,-1815,2645,/Game/HotelSecurity/Anomaly/Hospital/3F/BP_Sign_Exit_3F.BP_Sign_Exit_3F_C
+68,10,Hospital,병원,Hand,손,Floor 1,1층,-1290,-580,10,0,0,0,-960,2610,10,/Game/HotelSecurity/Anomaly/Hospital/1F/BP_Hand.BP_Hand_C
+69,11,Hospital,병원,Heater,난방기,Floor 1,1층,-730,3060,0,0,0,0,-730,2470,0,/Game/HotelSecurity/Anomaly/Hospital/1F/BP_Heater.BP_Heater_C
+70,12,Hospital,병원,IV Pole,수액걸이,Floor 3,3층,190,1350,2290,90,0,180,-10,1350,2290,/Game/HotelSecurity/Anomaly/Hospital/3F/BP_IVPole.BP_IVPole_C
+71,13,Hospital,병원,Medicine Box,약 상자,Floor 1,1층,785,-560,0,0,0,0,785,425,0,/Game/HotelSecurity/Anomaly/Hospital/1F/BP_Medicine_Box_1F.BP_Medicine_Box_1F_C
+72,14,Hospital,병원,Medicine Box,약 상자,Floor 2,2층,-735,-1160,1250,0,0,0,-735,-1160,1145,/Game/HotelSecurity/Anomaly/Hospital/2F/BP_Medicine_Box_2F.BP_Medicine_Box_2F_C
+73,15,Hospital,병원,Medicine Wall Cupboard,벽걸이 약 상자,Floor 2,2층,260,1630,1570,0,0,90,1300,1630,1570,/Game/HotelSecurity/Anomaly/Hospital/2F/BP_MedicineWallCupboard.BP_MedicineWallCupboard_C
+74,16,Hospital,병원,Monitor,화면,Floor 1,1층,1300,920,280,0,90,0,1300,2360,280,/Game/HotelSecurity/Anomaly/Hospital/1F/BP_Monitor.BP_Monitor_C
+75,17,Hospital,병원,Operating Bed,수술실 침대,Floor 1,1층,145,480,0,0,0,-90,-255,480,0,/Game/HotelSecurity/Anomaly/Hospital/1F/BP_Operating_Bed.BP_Operating_Bed_C
+76,18,Hospital,병원,Pillar,기둥,Floor 1,1층,-260,260,0,0,0,0,0,260,0,/Game/HotelSecurity/Anomaly/Hospital/1F/BP_Pillar_1F.BP_Pillar_1F_C
+77,19,Hospital,병원,Pillar,기둥,Floor 3,3층,-260,2180,2290,0,0,0,-260,3055,2290,/Game/HotelSecurity/Anomaly/Hospital/3F/BP_Pillar_3F.BP_Pillar_3F_C
+78,20,Hospital,병원,Shower,샤워기,Floor 3,3층,-1815,2140,2290,0,0,180,-1815,2690,2290,/Game/HotelSecurity/Anomaly/Hospital/3F/BP_Shower.BP_Shower_C
+79,21,Hospital,병원,Shower Curtain,샤워 커튼,Floor 3,3층,-1795,2145,2295,0,0,180,-1795,1505,2295,/Game/HotelSecurity/Anomaly/Hospital/3F/BP_Shower_Curtain.BP_Shower_Curtain_C
+80,22,Hospital,병원,Sink,싱크대,Floor 2,2층,-1275,2085,1145,0,0,-90,-1275,2540,1145,/Game/HotelSecurity/Anomaly/Hospital/2F/BP_Sink.BP_Sink_C
+81,23,Hospital,병원,Test Tube,실험 튜브,Floor 3,3층,110,3220,2290,0,0,180,-430,980,2290,/Game/HotelSecurity/Anomaly/Hospital/3F/BP_TestTube.BP_TestTube_C
+82,24,Hospital,병원,Toilet,변기,Floor 3,3층,-1315,-520,2290,0,0,-90,-1775,-520,2290,/Game/HotelSecurity/Anomaly/Hospital/3F/BP_Toilet.BP_Toilet_C
+83,25,Hospital,병원,Warning Sign,경고 표시,Floor 2,2층,-1810,-570,1545,-180,90,0,-1810,-1140,1545,/Game/HotelSecurity/Anomaly/Hospital/2F/BP_Sign_Warning.BP_Sign_Warning_C
+84,26,Hospital,병원,Wheel Chair,휠체어,Floor 1,1층,-590,760,-140,90,0,0,-160,760,-140,/Game/HotelSecurity/Anomaly/Hospital/1F/BP_WheelChair.BP_WheelChair_C
+85,27,Hospital,병원,X-Ray,엑스레이,Floor 2,2층,-1800,970,1380,0,0,-90,-1800,970,1030,/Game/HotelSecurity/Anomaly/Hospital/2F/BP_XRay.BP_Xray_C

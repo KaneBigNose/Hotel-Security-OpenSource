@@ -1,4 +1,4 @@
-// Made by LSH
+﻿// Made by LSH
 
 #pragma once
 
@@ -14,31 +14,31 @@ class HOTEL_SECURITY_API AHSInteractObjectBase : public AActor
 #pragma region Base
 
 public:
-	AHSInteractObjectBase();
+	AHSInteractObjectBase(const FObjectInitializer& ObjectInitializer);
 
 public:
 	class UStaticMeshComponent* GetInteractObject() { return InteractObject; }
 
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interact")
-	class UStaticMeshComponent* InteractObject;
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<class UStaticMeshComponent> InteractObject;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interact")
-	class USphereComponent* InteractRange;
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<class USphereComponent> InteractRange;
 
 #pragma endregion
 
 #pragma region Interact
 
 public:
-	virtual void PlayerInteractThisObject();
+	virtual void InteractThisObject();
 
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interact")
-	class UAudioComponent* InteractAudioComponent;
+	UPROPERTY(EditAnywhere, Category = "Interact")
+	TObjectPtr<class UAudioComponent> InteractAC;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interact")
-	class USoundWave* InteractSound;
+	UPROPERTY(EditAnywhere, Category = "Interact")
+	TObjectPtr<class USoundWave> InteractSound;
 
 	bool bIsInteracted = false;
 

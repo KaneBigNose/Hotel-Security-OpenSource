@@ -1,11 +1,29 @@
-// Made by LSH
+﻿// Made by LSH
 
 #pragma once
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Anomaly/Enum/HSAnomalyEnum.h"
 #include "HSAnomalyBase.generated.h"
+
+#pragma region Declare
+
+UENUM(BlueprintType)
+enum class EAnomalyType : uint8
+{
+	None		UMETA(DisplayName = "None"),
+	Move		UMETA(DisplayName = "Move"),
+	Rotate		UMETA(DisplayName = "Rotate"),
+	Expand		UMETA(DisplayName = "Expand"),
+	Shrink		UMETA(DisplayName = "Shrink"),
+	Disappear	UMETA(DisplayName = "Disappear"),
+	Change		UMETA(DisplayName = "Change"),
+	Fly			UMETA(DisplayName = "Fly"),
+	Darkness	UMETA(DisplayName = "Darkness"),
+	Ghost		UMETA(DisplayName = "Ghost")
+};
+
+#pragma endregion
 
 UCLASS()
 class HOTEL_SECURITY_API AHSAnomalyBase : public AActor
@@ -21,30 +39,37 @@ protected:
 	virtual void BeginPlay() override;
 
 protected:
-	class UHSWorldSubsystem* Subsystem;
+	UPROPERTY()
+	TObjectPtr<class UHSWorldSubsystem> Subsystem;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	class UStaticMeshComponent* AnomalyMeshComponent;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	class UStaticMesh* AnomalyMesh;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	class UStaticMesh* AnomalyChangeMesh;
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<class UStaticMeshComponent> AnomalyMeshComponent;
 
 #pragma endregion
 
 #pragma region Data
 
-protected:
-	FVector DefaultLocation;
-	FRotator DefaultRotation;
-	FVector DefaultScale;
+public:
+	FString LocationData;
+	FString ObjectData;
+	FString AnomalyData;
+
+#pragma endregion
+
+#pragma region Preview
 
 public:
-	FName LocationData;
-	FName ObjectData;
-	FName AnomalyData;
+	void CaptureObject();
+
+protected:
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<class USceneCaptureComponent2D> PreviewComp;
+
+	UPROPERTY()
+	TObjectPtr<class UTextureRenderTarget2D> ObjectPreview;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<class USpotLightComponent> PreviewLight;
 
 #pragma endregion
 
@@ -53,38 +78,74 @@ public:
 public:
 	void StartRandomAnomaly(int32 ActorNum);
 
-	bool CanApplyAnomalyEvent() { return !bApplyEvent; }
+	bool bApplyEvent = true;
+
+protected:
+	void Anomaly_Move(int32 ActorNum);
+	void Anomaly_Rotate();
+	void Anomaly_Expand();
+	void Anomaly_Shrink();
+	void Anomaly_Disappear();
+	void Anomaly_Change(int32 ActorNum);
+	void Anomaly_Fly(int32 ActorNum);
+	void Anomaly_Darkness();
+	void Anomaly_Ghost(int32 ActorNum);
+
+protected:
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<class UStaticMesh> AnomalyMesh;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<class UStaticMesh> AnomalyChangeMesh;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<class UStaticMeshComponent> DarknessComp;
+
+	UPROPERTY()
+	TObjectPtr<class UMaterial> DarknessMaterial;
+
+	UPROPERTY()
+	TObjectPtr<class UMaterial> DefalutMaterial;
+
+	UPROPERTY()
+	TObjectPtr<class UMaterial> GhostMaterial;
 
 protected:
 	TArray<EAnomalyType> Anomalys;
 
 	EAnomalyType CurrentAnomaly = EAnomalyType::None;
 
-	bool bApplyEvent = false;
+	FTimerHandle SmoothHandle;
 
-	void Anomaly_Location(int32 ActorNum);
-	void Anomaly_Rotation();
-	void Anomaly_Scale();
-	void Anomaly_Disappear();
-	void Anomaly_Change(int32 ActorNum);
-	void Anomaly_Fly();
+	FVector DefaultLocation;
+	FRotator DefaultRotation;
+	FVector DefaultScale;
+
+	UPROPERTY(EditAnywhere)
+	bool bCanFly = true;
+
+	UPROPERTY(EditAnywhere)
+	float DarknessRadius = 200;
 
 #pragma endregion
 
 #pragma region AnomalyFix
 
 public:
-	bool FixCurrentAnomaly(FName CheckLocation, FName CheckObject, FName CheckAnomaly);
+	bool FixCurrentAnomaly(FString CheckLocation, FString CheckObject, FString CheckAnomaly);
 
 protected:
-	bool CheckCanFixAnomaly(FName CheckLocation, FName CheckObject, FName CheckAnomaly);
+	bool CheckCanFix(FString CheckLocation, FString CheckObject, FString CheckAnomaly);
 
-	void FixLocationAnomaly();
-	void FixRotationAnomaly();
-	void FixScaleAnomaly();
-	void FixDisappearAnomaly();
-	void FixChangeAnomaly();
-	void FixFlyAnomaly();
+	void Fix_Move();
+	void Fix_Rotate();
+	void Fix_Expand();
+	void Fix_Shrink();
+	void Fix_Disappear();
+	void Fix_Change();
+	void Fix_Fly();
+	void Fix_Darkness();
+	void Fix_Ghost();
 
 #pragma endregion
 

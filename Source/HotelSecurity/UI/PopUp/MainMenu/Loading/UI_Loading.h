@@ -34,7 +34,7 @@ protected:
 	TObjectPtr<UWidgetAnimation> Disappear;
 
 	float CurrentTime = 0;
-	const float MaxTime = 3;
+	const float MaxTime = 3.5f;
 
 #pragma endregion
 

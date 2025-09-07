@@ -38,7 +38,7 @@ void UAT_ConsumeBattery::OnDestroy(bool bInOwnerFinished)
 
 void UAT_ConsumeBattery::ApplyEffect()
 {
-	ASC->ApplyGameplayEffect(Owner, ApplyEffectClass);
+	ASC->ApplyGameplayEffect(Owner, ApplyEffectClass, HSGameplayTags::Calculation::Battery, -0.1f);
 }
 
 void UAT_ConsumeBattery::TagChangeEvent_Flash(const FGameplayTag ChangeTag, int32 NewCount)

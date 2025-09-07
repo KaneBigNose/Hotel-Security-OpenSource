@@ -33,6 +33,7 @@ public:
 	FString AnomalyValue;
 
 	int32 ButtonIndex;
+	int32 ObjectIndex;
 
 #pragma endregion
 

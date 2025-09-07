@@ -40,4 +40,13 @@ protected:
 
 	UPROPERTY(SaveGame)
 	bool bFindPlagueDoctor = false;
+
+	UPROPERTY(SaveGame)
+	bool bFindDeadWave = false;
+
+	UPROPERTY(SaveGame)
+	bool bFindEclipser = false;
+
+	UPROPERTY(SaveGame)
+	bool bFindTimeEater = false;
 };

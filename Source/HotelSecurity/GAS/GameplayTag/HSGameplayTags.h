@@ -53,6 +53,7 @@ public:
 	{
 		static FGameplayTag Speed;
 		static FGameplayTag Fear;
+		static FGameplayTag Battery;
 	};
 
 	struct GameplayCue

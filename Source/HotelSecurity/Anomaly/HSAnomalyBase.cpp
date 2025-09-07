@@ -3,13 +3,23 @@
 #include "Anomaly/HSAnomalyBase.h"
 #include "GameSystem/Enum/HSEnumManager.h"
 #include "GameSystem/Subsystem/HSWorldSubsystem.h"
+#include "GameSystem/GameInstance/HSGameInstance.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SceneCaptureComponent2D.h"
 #include "Components/SpotLightComponent.h"
 #include "Data/Spawn/Anomaly/SpawnInfo_Anomaly.h"
 #include "Engine/TextureRenderTarget2D.h"
+#include "Kismet/GameplayStatics.h"
+
+#define LOCTEXT_NAMESPACE "HSAnomalyBase"
 
 #pragma region Base
+
+FText AHSAnomalyBase::PlaceText = LOCTEXT("key1", "Place");
+FText AHSAnomalyBase::ObjectText = LOCTEXT("key2", "Object");
+FText AHSAnomalyBase::AnomalyText = LOCTEXT("key3", "Anomaly");
+
+TArray<EAnomalyType> AHSAnomalyBase::Anomalys;
 
 AHSAnomalyBase::AHSAnomalyBase()
 {
@@ -32,9 +42,6 @@ AHSAnomalyBase::AHSAnomalyBase()
 	PreviewLight->OuterConeAngle = 80;
 	PreviewLight->bAffectsWorld = false;
 
-	DarknessComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("DarknessComp"));
-	DarknessComp->SetupAttachment(AnomalyMeshComponent);
-
 	static ConstructorHelpers::FObjectFinder<UTextureRenderTarget2D> ObjectPreviewFinder(TEXT("/AssetContent/Texture/UI/Report/ObjectPreview.ObjectPreview"));
 	if (ObjectPreviewFinder.Succeeded())
 	{
@@ -52,16 +59,6 @@ AHSAnomalyBase::AHSAnomalyBase()
 	{
 		GhostMaterial = GhostMaterialFinder.Object;
 	}
-
-	Anomalys.Add(EAnomalyType::Move);
-	Anomalys.Add(EAnomalyType::Rotate);
-	Anomalys.Add(EAnomalyType::Expand);
-	Anomalys.Add(EAnomalyType::Shrink);
-	Anomalys.Add(EAnomalyType::Disappear);
-	Anomalys.Add(EAnomalyType::Change);
-	Anomalys.Add(EAnomalyType::Fly);
-	Anomalys.Add(EAnomalyType::Darkness);
-	Anomalys.Add(EAnomalyType::Ghost);
 }
 
 void AHSAnomalyBase::BeginPlay()
@@ -76,10 +73,32 @@ void AHSAnomalyBase::BeginPlay()
 
 	if (AnomalyMeshComponent->GetStaticMesh())
 	{
-		DefalutMaterial = AnomalyMeshComponent->GetStaticMesh()->GetMaterial(0)->GetMaterial();
+		DefalutMaterial = AnomalyMeshComponent->GetMaterial(0);
 	}
 
 	PreviewComp->TextureTarget = ObjectPreview;
+
+	if (Anomalys.IsEmpty())
+	{
+		Anomalys.Add(EAnomalyType::Move);
+		Anomalys.Add(EAnomalyType::Rotate);
+		Anomalys.Add(EAnomalyType::Expand);
+		Anomalys.Add(EAnomalyType::Shrink);
+		Anomalys.Add(EAnomalyType::Disappear);
+		Anomalys.Add(EAnomalyType::Change);
+		Anomalys.Add(EAnomalyType::Fly);
+		Anomalys.Add(EAnomalyType::Darkness);
+		Anomalys.Add(EAnomalyType::Ghost);
+	}
+}
+
+void AHSAnomalyBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	GetWorld()->GetTimerManager().ClearTimer(SmoothHandle);
+
+	Anomalys.Empty();
+
+	Super::EndPlay(EndPlayReason);
 }
 
 #pragma endregion
@@ -109,7 +128,10 @@ void AHSAnomalyBase::StartRandomAnomaly(int32 ActorNum)
 {
 	int32 RandomInt = FMath::RandRange(0, Anomalys.Num() - 1);
 	CurrentAnomaly = Anomalys[RandomInt];
-	AnomalyData = HSEnumManager::GetEnumAsFString<EAnomalyType>(CurrentAnomaly);
+
+	SettingAnomalyData();
+
+	Subsystem->AnomalyList.Add(FString::Printf(TEXT("%s: %s, %s: %s, %s: %s"), *PlaceText.ToString(), *PlaceData, *ObjectText.ToString(), *ObjectData, *AnomalyText.ToString(), *AnomalyData));
 
 	switch (CurrentAnomaly)
 	{
@@ -142,7 +164,7 @@ void AHSAnomalyBase::StartRandomAnomaly(int32 ActorNum)
 		break;
 
 	case EAnomalyType::Darkness:
-		Anomaly_Darkness();
+		Anomaly_Darkness(ActorNum);
 		break;
 
 	case EAnomalyType::Ghost:
@@ -153,9 +175,60 @@ void AHSAnomalyBase::StartRandomAnomaly(int32 ActorNum)
 	bApplyEvent = false;
 }
 
+void AHSAnomalyBase::SettingAnomalyData()
+{
+	UHSGameInstance* GameInstance = GetGameInstance<UHSGameInstance>();
+
+	if (GameInstance->SelectedLanguage == ELanguageType::English)
+	{
+		AnomalyData = HSEnumManager::GetEnumAsFString<EAnomalyType>(CurrentAnomaly);
+	}
+	else if (GameInstance->SelectedLanguage == ELanguageType::Korean)
+	{
+		switch (CurrentAnomaly)
+		{
+		case EAnomalyType::Move:
+			AnomalyData = TEXT("이동함");
+			break;
+
+		case EAnomalyType::Rotate:
+			AnomalyData = TEXT("회전함");
+			break;
+
+		case EAnomalyType::Expand:
+			AnomalyData = TEXT("확장됨");
+			break;
+
+		case EAnomalyType::Shrink:
+			AnomalyData = TEXT("축소됨");
+			break;
+
+		case EAnomalyType::Disappear:
+			AnomalyData = TEXT("사라짐");
+			break;
+
+		case EAnomalyType::Change:
+			AnomalyData = TEXT("변화");
+			break;
+
+		case EAnomalyType::Fly:
+			AnomalyData = TEXT("공중에 뜸");
+			break;
+
+		case EAnomalyType::Darkness:
+			AnomalyData = TEXT("암흑");
+			break;
+
+		case EAnomalyType::Ghost:
+			AnomalyData = TEXT("유령화");
+			break;
+		}
+	}
+}
+
 void AHSAnomalyBase::Anomaly_Move(int32 ActorNum)
 {
-	FSpawnInfo_Anomaly* Data = Subsystem->GetAnomalyData(ActorNum);
+	FSpawnInfo_Anomaly* Data = Subsystem->GetAnomalyData(ActorNum, UHSGameInstance::SelectedMap);
 	FVector TargetLocation(Data->CLocationX, Data->CLocationY, Data->CLocationZ);
 
 	GetWorld()->GetTimerManager().SetTimer(SmoothHandle, [this, TargetLocation]()
@@ -227,7 +300,8 @@ void AHSAnomalyBase::Anomaly_Shrink()
 
 void AHSAnomalyBase::Anomaly_Disappear()
 {
-	AnomalyMeshComponent->SetVisibility(false);
+	AnomalyMeshComponent->SetVisibility(false, true);
+	AnomalyMeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
 void AHSAnomalyBase::Anomaly_Change(int32 ActorNum)
@@ -275,29 +349,28 @@ void AHSAnomalyBase::Anomaly_Fly(int32 ActorNum)
 		}, 0.01f, true);
 }
 
-void AHSAnomalyBase::Anomaly_Darkness()
+void AHSAnomalyBase::Anomaly_Darkness(int32 ActorNum)
 {
+	if (!AnomalyMeshComponent->GetStaticMesh())
+	{
+		StartRandomAnomaly(ActorNum);
+		return;
+	}
+
 	UMaterialInstanceDynamic* DynMat = UMaterialInstanceDynamic::Create(DarknessMaterial, this);
-	APostProcessVolume* PostProcessVolume = GetWorld()->SpawnActor<APostProcessVolume>();
-	FVector SphereLocation = DarknessComp->GetComponentLocation();
+	AnomalyMeshComponent->SetMaterial(0, DynMat);
 
-	PostProcessVolume->bUnbound = true;
-	PostProcessVolume->Settings.WeightedBlendables.Array.Add(FWeightedBlendable(1, DynMat));
+	float CurrentAlpha = 0.1f;
+	const float TargetAlpha = 1;
 
-	DynMat->SetVectorParameterValue(TEXT("SphereCenter"), FLinearColor(SphereLocation.X, SphereLocation.Y, SphereLocation.Z, 0));
-	DynMat->SetScalarParameterValue(TEXT("SphereRadius"), DarknessRadius);
-
-	float CurrentColor = 1;
-	const float TargetColor = 0.05f;
-
-	GetWorld()->GetTimerManager().SetTimer(SmoothHandle, [this, DynMat, CurrentColor, TargetColor]() mutable
+	GetWorld()->GetTimerManager().SetTimer(SmoothHandle, [this, DynMat, CurrentAlpha, TargetAlpha]() mutable
 		{
-			CurrentColor -= 0.02f;
-			DynMat->SetScalarParameterValue("Smooth", CurrentColor);
+			CurrentAlpha += 0.02f;
+			DynMat->SetScalarParameterValue("Opacity", CurrentAlpha);
 
-			if (CurrentColor <= TargetColor)
+			if (CurrentAlpha >= TargetAlpha)
 			{
-				CurrentColor = 1;
+				CurrentAlpha = 0.1f;
 				GetWorld()->GetTimerManager().ClearTimer(SmoothHandle);
 			}
 		}, 0.1f, true);
@@ -315,7 +388,7 @@ void AHSAnomalyBase::Anomaly_Ghost(int32 ActorNum)
 	AnomalyMeshComponent->SetMaterial(0, DynMat);
 
 	float CurrentAlpha = 1;
-	const float TargetAlpha = 0.05f;
+	const float TargetAlpha = 0.1f;
 
 	GetWorld()->GetTimerManager().SetTimer(SmoothHandle, [this, DynMat, CurrentAlpha, TargetAlpha]() mutable
 		{
@@ -334,9 +407,9 @@ void AHSAnomalyBase::Anomaly_Ghost(int32 ActorNum)
 
 #pragma region Anomaly Fix
 
-bool AHSAnomalyBase::FixCurrentAnomaly(FString CheckLocation, FString CheckObject, FString CheckAnomaly)
+bool AHSAnomalyBase::FixCurrentAnomaly(FString CheckPlace, FString CheckObject, FString CheckAnomaly)
 {
-	if (!CheckCanFix(CheckLocation, CheckObject, CheckAnomaly))
+	if (!CheckCanFix(CheckPlace, CheckObject, CheckAnomaly))
 	{
 		return false;
 	}
@@ -380,13 +453,18 @@ bool AHSAnomalyBase::FixCurrentAnomaly(FString CheckLocation, FString CheckObjec
 		break;
 	}
 
+	Subsystem->AnomalyList.Remove(FString::Printf(TEXT("%s: %s, %s: %s, %s: %s"), *PlaceText.ToString(), *PlaceData, *ObjectText.ToString(), *ObjectData, *AnomalyText.ToString(), *AnomalyData));
+
+	CurrentAnomaly = EAnomalyType::None;
+	AnomalyData = TEXT("");
+
 	bApplyEvent = true;
 	return true;
 }
 
-bool AHSAnomalyBase::CheckCanFix(FString CheckLocation, FString CheckObject, FString CheckAnomaly)
+bool AHSAnomalyBase::CheckCanFix(FString CheckPlace, FString CheckObject, FString CheckAnomaly)
 {
-	if (bApplyEvent || LocationData != CheckLocation || ObjectData != CheckObject || AnomalyData != CheckAnomaly)
+	if (bApplyEvent || PlaceData != CheckPlace || ObjectData != CheckObject || AnomalyData != CheckAnomaly)
 	{
 		Subsystem->FailedFixAnomaly();
 		return false;
@@ -419,7 +497,8 @@ void AHSAnomalyBase::Fix_Shrink()
 
 void AHSAnomalyBase::Fix_Disappear()
 {
-	AnomalyMeshComponent->SetVisibility(true);
+	AnomalyMeshComponent->SetVisibility(true, true);
+	AnomalyMeshComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 }
 
 void AHSAnomalyBase::Fix_Change()
@@ -434,7 +513,8 @@ void AHSAnomalyBase::Fix_Fly()
 
 void AHSAnomalyBase::Fix_Darkness()
 {
-
+	UMaterialInstanceDynamic* DynMat = UMaterialInstanceDynamic::Create(DefalutMaterial, this);
+	AnomalyMeshComponent->SetMaterial(0, DynMat);
 }
 
 void AHSAnomalyBase::Fix_Ghost()
@@ -444,3 +524,5 @@ void AHSAnomalyBase::Fix_Ghost()
 }
 
 #pragma endregion
+
+#undef LOCTEXT_NAMESPACE

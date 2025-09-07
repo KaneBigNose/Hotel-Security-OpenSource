@@ -36,18 +36,6 @@ public:
 
 protected:
 	UFUNCTION()
-	virtual void InputWidget_Up() PURE_VIRTUAL(UUI_PopUp_Base::InputWidget_Up, );
-
-	UFUNCTION()
-	virtual void InputWidget_Down() PURE_VIRTUAL(UUI_PopUp_Base::InputWidget_Down, );
-
-	UFUNCTION()
-	virtual void InputWidget_Left() PURE_VIRTUAL(UUI_PopUp_Base::InputWidget_Left, );
-
-	UFUNCTION()
-	virtual void InputWidget_Right() PURE_VIRTUAL(UUI_PopUp_Base::InputWidget_Right, );
-
-	UFUNCTION()
 	virtual void InputWidget_Enter() PURE_VIRTUAL(UUI_PopUp_Base::InputWidget_Enter, );
 
 	UFUNCTION()

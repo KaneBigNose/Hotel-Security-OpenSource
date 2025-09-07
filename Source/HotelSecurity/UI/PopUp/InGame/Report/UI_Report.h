@@ -9,7 +9,7 @@
 
 #pragma region Declare
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FReportStart, FString, SelectedLocation, FString, SelectedObject, FString, SelectedAnomaly);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FReportStart, FString, SelectedPlace, FString, SelectedObject, FString, SelectedAnomaly);
 
 UENUM(BlueprintType)
 enum class EButtonValueType : uint8
@@ -112,7 +112,7 @@ public:
 	int32 SelectedAnomalyIndex;
 
 #pragma endregion
-	
+
 #pragma region Preview
 
 protected:
@@ -127,6 +127,29 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<class UMaterial> ObjectPreview_Mat;
+
+#pragma endregion
+
+#pragma region Remain Chance
+
+protected:
+	void SetRemainChanceImage();
+
+protected:
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<class UImage> Chance1;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<class UImage> Chance2;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<class UImage> Chance3;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<class UTexture2D> RemainChance;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<class UTexture2D> DeadChance;
 
 #pragma endregion
 

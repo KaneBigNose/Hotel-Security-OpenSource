@@ -21,6 +21,9 @@ protected:
 	UPROPERTY()
 	TObjectPtr<class UHSGameInstance> GameInstance;
 
+	int32 MapClearCount = 0;
+	int32 OpenOldMotelCount = 2;
+
 #pragma endregion
 
 #pragma region Highlight
@@ -46,6 +49,9 @@ protected:
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<class UTextBlock> HospitalText;
 
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<class UTextBlock> OldMotelText;
+
 #pragma endregion
 
 #pragma region Click
@@ -61,7 +67,7 @@ protected:
 	void ClickHospitalSelectButton();
 
 	UFUNCTION()
-	void ClickOldHouseSelectButton();
+	void ClickOldMotelSelectButton();
 
 	UFUNCTION()
 	void ClickStartButton();
@@ -77,7 +83,7 @@ protected:
 	TObjectPtr<class UButton> HospitalButton;
 
 	UPROPERTY(meta = (BindWidget))
-	TObjectPtr<class UButton> OldHouseButton;
+	TObjectPtr<class UButton> OldMotelButton;
 
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<class UButton> StartButton;
@@ -104,6 +110,15 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<class UTexture2D> PreviewHospital;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<class UTexture2D> PreviewOldMotel;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<class UImage> Lock1;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<class UImage> Lock2;
 
 #pragma endregion
 

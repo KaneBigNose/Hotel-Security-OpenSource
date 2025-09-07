@@ -16,13 +16,7 @@ AHSCharacter::AHSCharacter(const FObjectInitializer& ObjectInitializer)
 
 void AHSCharacter::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
-	for (FGameplayAbilitySpec& Spec : ASC->GetActivatableAbilities())
-	{
-		if (Spec.IsActive())
-		{
-			ASC->ClearAbility(Spec.Handle);
-		}
-	}
+	ASC->ClearAllAbilities();
 
 	Super::EndPlay(EndPlayReason);
 }

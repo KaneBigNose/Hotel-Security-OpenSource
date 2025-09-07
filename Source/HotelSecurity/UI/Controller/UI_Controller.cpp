@@ -31,8 +31,8 @@ UUI_PopUp_Base* UUI_Controller::OpenPopUpWidget(TSubclassOf<UUI_PopUp_Base> Widg
 	}
 
 	UUI_PopUp_Base* Widget = CreateWidget<UUI_PopUp_Base>(GetWorld(), WidgetClass);
-	Widget->AddToViewport(ZOrderIndex++);
 	PopUpWidget = Widget;
+	Widget->AddToViewport(ZOrderIndex++);
 
 	SetInputMode(EInputModeType::UIOnly);
 
@@ -47,9 +47,9 @@ UUI_PopUp_Base* UUI_Controller::OpenStrongPopUpWidget(TSubclassOf<class UUI_PopU
 	}
 
 	UUI_PopUp_Base* Widget = CreateWidget<UUI_PopUp_Base>(GetWorld(), WidgetClass);
-	GEngine->GameViewport->AddViewportWidgetContent(Widget->TakeWidget(), 100);
 	PopUpWidget = Widget;
 	ZOrderIndex++;
+	GEngine->GameViewport->AddViewportWidgetContent(Widget->TakeWidget(), 100);
 
 	SetInputMode(EInputModeType::UIOnly);
 

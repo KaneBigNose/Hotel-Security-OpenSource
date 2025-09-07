@@ -38,10 +38,12 @@ ABlackVeil::ABlackVeil(const FObjectInitializer& ObjectInitializer)
 	InteractLightCapsule->SetCapsuleHalfHeight(600.f);
 	InteractLightCapsule->SetCapsuleRadius(600.f);
 	InteractLightCapsule->SetRelativeLocationAndRotation(FVector::ZeroVector, FRotator::ZeroRotator);
+	InteractLightCapsule->OnComponentBeginOverlap.RemoveDynamic(this, &ThisClass::OnInteractRangeLightBeginOverlap);
 	InteractLightCapsule->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::OnInteractRangeLightBeginOverlap);
+	InteractLightCapsule->OnComponentEndOverlap.RemoveDynamic(this, &ThisClass::OnInteractRangeLightEndOverlap);
 	InteractLightCapsule->OnComponentEndOverlap.AddDynamic(this, &ThisClass::OnInteractRangeLightEndOverlap);
 
-	KillPlayerCapsule->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	KillCapsule->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 	DefaultSound = CreateDefaultSubobject<UHSCharacterSound>(TEXT("DefaultSound"));
 }

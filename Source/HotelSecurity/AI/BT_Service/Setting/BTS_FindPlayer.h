@@ -32,6 +32,9 @@ protected:
 	UPROPERTY()
 	TObjectPtr<class UBlackboardComponent> OwnerBB;
 
+	UPROPERTY()
+	TObjectPtr<class AHSGameMode> GameMode;
+
 #pragma endregion
 
 #pragma region Find Player
@@ -41,6 +44,17 @@ protected:
 
 protected:
 	bool bCanFind = true;
+
+#pragma endregion
+
+#pragma region Time Stop
+
+protected:
+	UFUNCTION()
+	void StopFind(bool bIsStop);
+
+protected:
+	bool bIsTimeStop = false;
 
 #pragma endregion
 

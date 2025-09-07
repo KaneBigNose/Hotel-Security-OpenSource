@@ -48,6 +48,7 @@ AHSPlayer::AHSPlayer(const FObjectInitializer& ObjectInitializer)
 	HandFlashLight->Intensity = 20000;
 	HandFlashLight->IntensityUnits = ELightUnits::Unitless;
 	
+	PlayerDie.RemoveDynamic(this, &ThisClass::OnPlayerDie);
 	PlayerDie.AddDynamic(this, &ThisClass::OnPlayerDie);
 }
 

@@ -16,7 +16,8 @@ enum class EMapType : uint8
 	MainMenu	UMETA(DisplayName = "MainMenu"),
 	Hotel		UMETA(DisplayName = "Hotel"),
 	Mine		UMETA(DisplayName = "Mine"),
-	Hospital	UMETA(DisplayName = "Hospital")
+	Hospital	UMETA(DisplayName = "Hospital"),
+	OldMotel	UMETA(DisplayName = "OldMotel")
 };
 
 UENUM(BlueprintType)
@@ -66,13 +67,16 @@ protected:
 public:
 	FStageClear StageClear;
 
-public:
+protected:
 	UFUNCTION()
 	void StageClearFunc();
 
 protected:
 	UPROPERTY()
 	TSubclassOf<class UUI_PopUp_Base> StageClearClass;
+
+	UPROPERTY()
+	TSubclassOf<class UUI_PopUp_Base> CreditClass;
 
 #pragma endregion
 

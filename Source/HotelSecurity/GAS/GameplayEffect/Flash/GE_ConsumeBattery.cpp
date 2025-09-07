@@ -2,6 +2,7 @@
 
 #include "GAS/GameplayEffect/Flash/GE_ConsumeBattery.h"
 #include "GAS/AttributeSet/Player/HSPlayerAttributeSet.h"
+#include "GAS/GameplayTag/HSGameplayTags.h"
 
 UGE_ConsumeBattery::UGE_ConsumeBattery()
 {
@@ -10,7 +11,10 @@ UGE_ConsumeBattery::UGE_ConsumeBattery()
     FGameplayModifierInfo FlashModifier;
     FlashModifier.Attribute = UHSPlayerAttributeSet::GetFlashLifeAttribute();
     FlashModifier.ModifierOp = EGameplayModOp::Additive;
-    FlashModifier.ModifierMagnitude = FScalableFloat(-0.1f);
+
+    FSetByCallerFloat SetbyCaller;
+    SetbyCaller.DataTag = HSGameplayTags::Calculation::Battery;
+    FlashModifier.ModifierMagnitude = SetbyCaller;
 
     Modifiers.Add(FlashModifier);
 }

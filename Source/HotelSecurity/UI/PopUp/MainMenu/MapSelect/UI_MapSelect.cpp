@@ -21,7 +21,7 @@ void UUI_MapSelect::NativeOnInitialized()
 	HotelButton->OnClicked.AddDynamic(this, &ThisClass::ClickHotelSelectButton);
 	MineButton->OnClicked.AddDynamic(this, &ThisClass::ClickMineSelectButton);
 	HospitalButton->OnClicked.AddDynamic(this, &ThisClass::ClickHospitalSelectButton);
-	OldHouseButton->OnClicked.AddDynamic(this, &ThisClass::ClickOldHouseSelectButton);
+	OldMotelButton->OnClicked.AddDynamic(this, &ThisClass::ClickOldMotelSelectButton);
 	StartButton->OnClicked.AddDynamic(this, &ThisClass::ClickStartButton);
 
 	StartButton->SetVisibility(ESlateVisibility::Hidden);
@@ -33,13 +33,12 @@ void UUI_MapSelect::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	int32 MapClearCount = 0;
-	bool bIsClearHotel = false, bIsClearMine = false, bIsClearHospital = false;
+	bool bIsClearHotel = false, bIsClearMine = false, bIsClearHospital = false, bIsClearOldMotel = false;
 
-	UHSSave_Clear* Save_Clear = Cast<UHSSave_Clear>(UGameplayStatics::LoadGameFromSlot(TEXT("HSGameSaveSlot"), 0));
+	UHSSave_Clear* Save_Clear = Cast<UHSSave_Clear>(UGameplayStatics::LoadGameFromSlot(TEXT("HSSave_Clear"), 0));
 	if (Save_Clear)
 	{
-		Save_Clear->LoadClearData(OUT MapClearCount, OUT bIsClearHotel, OUT bIsClearMine, OUT bIsClearHospital);
+		Save_Clear->LoadClearData(OUT MapClearCount, OUT bIsClearHotel, OUT bIsClearMine, OUT bIsClearHospital, OUT bIsClearOldMotel);
 	}
 
 	FText ClearText = LOCTEXT("key1", "Clear");
@@ -56,6 +55,26 @@ void UUI_MapSelect::NativeConstruct()
 	{
 		HospitalText->SetText(ClearText);
 	}
+	if (bIsClearOldMotel)
+	{
+		OldMotelText->SetText(ClearText);
+	}
+
+	if (MapClearCount >= 2)
+	{
+		Lock1->SetVisibility(ESlateVisibility::Hidden);
+		Lock2->SetVisibility(ESlateVisibility::Hidden);
+	}
+	else if (MapClearCount == 1)
+	{
+		Lock1->SetVisibility(ESlateVisibility::Visible);
+		Lock2->SetVisibility(ESlateVisibility::Hidden);
+	}
+	else
+	{
+		Lock1->SetVisibility(ESlateVisibility::Visible);
+		Lock2->SetVisibility(ESlateVisibility::Visible);
+	}
 
 	SettingPreviewImage(PreviewNotSelect);
 }
@@ -69,7 +88,7 @@ void UUI_MapSelect::InitButtons()
 	MapButtons.Add(HotelButton);
 	MapButtons.Add(MineButton);
 	MapButtons.Add(HospitalButton);
-	MapButtons.Add(OldHouseButton);
+	MapButtons.Add(OldMotelButton);
 }
 
 #pragma endregion
@@ -100,9 +119,19 @@ void UUI_MapSelect::ClickHospitalSelectButton()
 	Highlight(MapButtons, 2);
 }
 
-void UUI_MapSelect::ClickOldHouseSelectButton()
+void UUI_MapSelect::ClickOldMotelSelectButton()
 {
-	StartButton->SetVisibility(ESlateVisibility::Hidden);
+	if (MapClearCount < OpenOldMotelCount)
+	{
+		SettingPreviewImage(PreviewNotSelect);
+		Highlight(MapButtons, 100);
+		StartButton->SetVisibility(ESlateVisibility::Hidden);
+		return;
+	}
+
+	GameInstance->SelectedMap = EMapType::OldMotel;
+	SettingPreviewImage(PreviewOldMotel);
+	StartButton->SetVisibility(ESlateVisibility::Visible);
 	Highlight(MapButtons, 3);
 }
 

@@ -4,6 +4,7 @@
 #include "GameSystem/GameInstance/HSGameInstance.h"
 #include "GameSystem/Subsystem/HSWorldSubsystem.h"
 #include "GameSystem/Enum/HSEnumManager.h"
+#include "GameSystem/GameMode/HSGameMode.h"
 #include "GAS/AbilitySystemComponent/HSAbilitySystemComponent.h"
 #include "GAS/GameplayTag/HSGameplayTags.h"
 #include "Components/AudioComponent.h"
@@ -43,6 +44,7 @@ void UHSAudioController::OnWorldBeginPlay(UWorld& InWorld)
 		BGM_AudioComponent->RegisterComponentWithWorld(GetWorld());
 		BGM_AudioComponent->AttachToComponent(GetWorld()->GetWorldSettings()->GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
 		BGM_AudioComponent->SetUISound(true);
+		BGM_AudioComponent->OnAudioFinished.RemoveDynamic(this, &ThisClass::PlayBGM);
 		BGM_AudioComponent->OnAudioFinished.AddDynamic(this, &ThisClass::PlayBGM);
 	}
 
@@ -58,6 +60,7 @@ void UHSAudioController::AudioSetting()
 		BGM_AudioComponent->RegisterComponentWithWorld(GetWorld());
 		BGM_AudioComponent->AttachToComponent(GetWorld()->GetWorldSettings()->GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
 		BGM_AudioComponent->SetUISound(true);
+		BGM_AudioComponent->OnAudioFinished.RemoveDynamic(this, &ThisClass::PlayBGM);
 		BGM_AudioComponent->OnAudioFinished.AddDynamic(this, &ThisClass::PlayBGM);
 	}
 
@@ -68,6 +71,10 @@ void UHSAudioController::AudioSetting()
 	UHSWorldSubsystem* Subsystem = GetWorld()->GetSubsystem<UHSWorldSubsystem>();
 	Subsystem->AnomalyEventOccur.RemoveDynamic(this, &ThisClass::PlayAnomalyOccurSound);
 	Subsystem->AnomalyEventOccur.AddDynamic(this, &ThisClass::PlayAnomalyOccurSound);
+
+	AHSGameMode* GameMode = GetWorld()->GetAuthGameMode<AHSGameMode>();
+	GameMode->TimeStop.RemoveDynamic(this, &ThisClass::TimeStopFunc);
+	GameMode->TimeStop.AddDynamic(this, &ThisClass::TimeStopFunc);
 
 	if (!Anomaly_AudioComponent)
 	{
@@ -96,7 +103,9 @@ void UHSAudioController::AudioSetting()
 		HeartBeatRange->SetRelativeLocation(FVector(0, 0, 0));
 		HeartBeatRange->SetSphereRadius(1700);
 		HeartBeatRange->SetCollisionObjectType(ECollisionChannel::ECC_GameTraceChannel1);
+		HeartBeatRange->OnComponentBeginOverlap.RemoveDynamic(this, &ThisClass::OnHeartBeatRangeBeginOverlap);
 		HeartBeatRange->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::OnHeartBeatRangeBeginOverlap);
+		HeartBeatRange->OnComponentEndOverlap.RemoveDynamic(this, &ThisClass::OnHeartBeatRangeEndOverlap);
 		HeartBeatRange->OnComponentEndOverlap.AddDynamic(this, &ThisClass::OnHeartBeatRangeEndOverlap);
 	}
 
@@ -173,6 +182,11 @@ void UHSAudioController::PlayBGM()
 
 void UHSAudioController::TagChangeEvent_Chased(FGameplayTag ChangeTag, int32 NewCount)
 {
+	if (bIsTimeStop)
+	{
+		return;
+	}
+
 	if (ASC->HasMatchingGameplayTag(ChangeTag))
 	{
 		SelectedBGM = EBGMType::Chased;
@@ -187,6 +201,11 @@ void UHSAudioController::TagChangeEvent_Chased(FGameplayTag ChangeTag, int32 New
 
 void UHSAudioController::TagChangeEvent_HeartBeat(FGameplayTag ChangeTag, int32 NewCount)
 {
+	if (bIsTimeStop)
+	{
+		return;
+	}
+
 	if (ASC->HasMatchingGameplayTag(ChangeTag) && !ASC->HasMatchingGameplayTag(HSGameplayTags::State::Chased))
 	{
 		SelectedBGM = EBGMType::HeartBeat;
@@ -216,15 +235,59 @@ void UHSAudioController::TagChangeEvent_GameOver(FGameplayTag ChangeTag, int32 N
 
 void UHSAudioController::TagChangeEvent_Report(FGameplayTag ChangeTag, int32 NewCount)
 {
+	UHSWorldSubsystem* Subsystem = GetWorld()->GetSubsystem<UHSWorldSubsystem>();
+
+	if (Subsystem->FailCount >= Subsystem->MaxFailCount)
+	{
+		return;
+	}
+
 	if (!ASC->HasMatchingGameplayTag(ChangeTag))
 	{
-		TagChangeEvent_HeartBeat(HSGameplayTags::State::HeartBeat, 0);
-
+		if (bIsTimeStop)
+		{
+			SelectedBGM = EBGMType::TimeStop;
+			PlayBGM();
+		}
+		else
+		{
+			TagChangeEvent_HeartBeat(HSGameplayTags::State::HeartBeat, 0);
+		}
+		
 		return;
 	}
 
 	SelectedBGM = EBGMType::ReportResult;
 	PlayBGM();
+}
+
+void UHSAudioController::TimeStopFunc(bool bIsStop)
+{
+	if (!bIsStop)
+	{
+		SelectedBGM = EBGMType::TimeStopEnd;
+		PlayBGM();
+
+		FTimerHandle EndStopHandle;
+		GetWorld()->GetTimerManager().SetTimer(EndStopHandle, [this]()
+			{
+				bIsTimeStop = false;
+				TagChangeEvent_Chased(HSGameplayTags::State::Chased, 0);
+			}, 2, false);
+
+		return;
+	}
+
+	bIsTimeStop = true;
+	SelectedBGM = EBGMType::TimeStopStart;
+	PlayBGM();
+
+	FTimerHandle StopBGMHandle;
+	GetWorld()->GetTimerManager().SetTimer(StopBGMHandle, [this]()
+		{
+			SelectedBGM = EBGMType::TimeStop;
+			PlayBGM();
+		}, 3, false);
 }
 
 void UHSAudioController::OnHeartBeatRangeBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)

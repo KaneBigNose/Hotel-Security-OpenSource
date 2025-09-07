@@ -19,6 +19,7 @@ void UHSPlayerCamera::BeginPlay()
 	Super::BeginPlay();
 
 	HSPlayer = Cast<AHSPlayer>(GetOwner());
+	HSPlayer->PlayerDie.RemoveDynamic(this, &ThisClass::SetCameraDieView);
 	HSPlayer->PlayerDie.AddDynamic(this, &ThisClass::SetCameraDieView);
 
 	SpringArm = NewObject<USpringArmComponent>(HSPlayer);

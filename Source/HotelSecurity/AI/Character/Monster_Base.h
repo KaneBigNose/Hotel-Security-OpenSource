@@ -18,7 +18,10 @@ enum class EMonsterType : uint8
 	HangingBody		UMETA(DisplayName = "HangingBody"),
 	Nurse			UMETA(DisplayName = "Nurse"),
 	Melodia			UMETA(DisplayName = "Melodia"),
-	PlagueDoctor	UMETA(DisplayName = "PlagueDoctor")
+	PlagueDoctor	UMETA(DisplayName = "PlagueDoctor"),
+	TimeEater		UMETA(DisplayName = "TimeEater"),
+	DeadWave		UMETA(DisplayName = "DeadWave"),
+	Eclipser		UMETA(DisplayName = "Eclipser")
 };
 
 #pragma endregion
@@ -53,11 +56,22 @@ protected:
 
 protected:
 	UFUNCTION()
-	void OnKillPlayerRangeBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	virtual void KillBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 protected:
 	UPROPERTY(EditAnywhere)
-	TObjectPtr<class UCapsuleComponent> KillPlayerCapsule;
+	TObjectPtr<class UCapsuleComponent> KillCapsule;
+
+#pragma endregion
+
+#pragma region Time Stop
+
+protected:
+	UFUNCTION()
+	virtual void MonsterStop(bool bIsStop);
+
+protected:
+	ECollisionEnabled::Type KillType;
 
 #pragma endregion
 

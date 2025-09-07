@@ -4,6 +4,7 @@
 #include "GAS/AttributeSet/AI/HSMonsterAttributeSet.h"
 #include "GAS/AbilitySystemComponent/HSAbilitySystemComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "GameSystem/GameMode/HSGameMode.h"
 #include "Components/CapsuleComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Player/Character/HSPlayer.h"
@@ -18,11 +19,12 @@ AMonster_Base::AMonster_Base(const FObjectInitializer& ObjectInitializer)
 	GetCapsuleComponent()->SetCapsuleHalfHeight(120);
 	GetCapsuleComponent()->SetCapsuleRadius(40);
 
-	KillPlayerCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("KillPlayerCapsule"));
-	KillPlayerCapsule->SetupAttachment(RootComponent);
-	KillPlayerCapsule->SetCapsuleHalfHeight(100);
-	KillPlayerCapsule->SetCapsuleRadius(60);
-	KillPlayerCapsule->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::OnKillPlayerRangeBeginOverlap);
+	KillCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("KillPlayerCapsule"));
+	KillCapsule->SetupAttachment(RootComponent);
+	KillCapsule->SetCapsuleHalfHeight(100);
+	KillCapsule->SetCapsuleRadius(60);
+	KillCapsule->OnComponentBeginOverlap.RemoveDynamic(this, &ThisClass::KillBeginOverlap);
+	KillCapsule->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::KillBeginOverlap);
 
 	GetCharacterMovement()->RotationRate = FRotator(0, 500, 0);
 	GetCharacterMovement()->bOrientRotationToMovement = true;
@@ -44,6 +46,12 @@ void AMonster_Base::PossessedBy(AController* NewController)
 	ASC->InitAbilityActorInfo(this, this);
 
 	GiveAbilities();
+
+	KillType = KillCapsule->GetCollisionEnabled();
+
+	AHSGameMode* GameMode = GetWorld()->GetAuthGameMode<AHSGameMode>();
+	GameMode->TimeStop.RemoveDynamic(this, &ThisClass::MonsterStop);
+	GameMode->TimeStop.AddDynamic(this, &ThisClass::MonsterStop);
 }
 
 #pragma endregion
@@ -59,7 +67,7 @@ UHSAttributeSet* AMonster_Base::GetHSAttributeSet()
 
 #pragma region Overlap Event
 
-void AMonster_Base::OnKillPlayerRangeBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+void AMonster_Base::KillBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (AHSPlayer* HSPlayer = Cast<AHSPlayer>(OtherActor))
 	{
@@ -67,6 +75,26 @@ void AMonster_Base::OnKillPlayerRangeBeginOverlap(UPrimitiveComponent* Overlappe
 
 		FRotator DestinationRotation = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), HSPlayer->GetActorLocation());
 		SetActorRotation(DestinationRotation);
+
+		KillCapsule->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	}
+}
+
+#pragma endregion
+
+#pragma region Time Stop
+
+void AMonster_Base::MonsterStop(bool bIsStop)
+{
+	if (bIsStop)
+	{
+		KillCapsule->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		CustomTimeDilation = 0;
+	}
+	else
+	{
+		KillCapsule->SetCollisionEnabled(KillType);
+		CustomTimeDilation = 1;
 	}
 }
 

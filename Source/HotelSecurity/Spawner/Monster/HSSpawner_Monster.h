@@ -23,7 +23,7 @@ protected:
 
 public:
 	virtual struct FSpawnInfo* GetObjectData(int32 RowNum, EMapType CurrentMap = UHSGameInstance::SelectedMap) override;
-	virtual struct FSpawnInfo* GetObjectData(FString TargetName) override;
+	virtual struct FSpawnInfo* GetObjectData(FString TargetName, FString TargetPlace = TEXT("None")) override;
 
 #pragma endregion
 
@@ -31,6 +31,10 @@ public:
 
 protected:
 	virtual void SpawnObjects() override;
+
+protected:
+	UPROPERTY()
+	TArray<FTimerHandle> TimerHandles;
 
 #pragma endregion
 

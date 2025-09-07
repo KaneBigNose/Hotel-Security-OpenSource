@@ -16,10 +16,10 @@ class HOTEL_SECURITY_API AHSSpawner_Base : public AActor
 
 public:
 	AHSSpawner_Base(const FObjectInitializer& ObjectInitializer);
-	~AHSSpawner_Base();
 
 protected:
 	virtual void BeginPlay() override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 #pragma endregion
 
@@ -29,7 +29,7 @@ public:
 	class UDataTable* GetSpawnDataTable() { return SpawnDataTable; }
 
 	virtual struct FSpawnInfo* GetObjectData(int32 RowNum, EMapType CurrentMap = UHSGameInstance::SelectedMap) { return nullptr; }
-	virtual struct FSpawnInfo* GetObjectData(FString TargetName) { return nullptr; }
+	virtual struct FSpawnInfo* GetObjectData(FString TargetName, FString TargetPlace = TEXT("None")) { return nullptr; }
 
 protected:
 	UPROPERTY(EditAnywhere)

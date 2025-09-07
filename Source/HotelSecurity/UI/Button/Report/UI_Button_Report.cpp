@@ -66,7 +66,7 @@ void UUI_Button_Report::CaptureObject()
 	AHSSpawner_Anomaly* Spawner = Subsystem->GetAnomalySpawner();
 	TArray<AActor*> SpawnedObjects = Spawner->GetSpawnedObjects();
 
-	int32 Index = Subsystem->GetAnomalyData(ObjectValue)->Number - 1;
+	int32 Index = Subsystem->GetAnomalyData(ObjectIndex)->Number - 1;
 
 	Cast<AHSAnomalyBase>(SpawnedObjects[Index])->CaptureObject();
 }

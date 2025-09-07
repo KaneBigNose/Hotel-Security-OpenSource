@@ -29,6 +29,7 @@ FGameplayTag HSGameplayTags::UI::Action::Enter;
 
 FGameplayTag HSGameplayTags::Calculation::Speed;
 FGameplayTag HSGameplayTags::Calculation::Fear;
+FGameplayTag HSGameplayTags::Calculation::Battery;
 
 FGameplayTag HSGameplayTags::GameplayCue::Camera::Shake_Default;
 FGameplayTag HSGameplayTags::GameplayCue::Camera::Shake_HangingBody;
@@ -74,6 +75,7 @@ void HSGameplayTags::InitGameplayTags()
 
 	Calculation::Speed = FGameplayTag::RequestGameplayTag(FName("Character.Calculation.Speed"));
 	Calculation::Fear = FGameplayTag::RequestGameplayTag(FName("Character.Calculation.Fear"));
+	Calculation::Battery = FGameplayTag::RequestGameplayTag(FName("Character.Calculation.Battery"));
 
 	GameplayCue::Camera::Shake_Default = FGameplayTag::RequestGameplayTag(FName("GameplayCue.Camera.Shake.Default"));
 	GameplayCue::Camera::Shake_HangingBody = FGameplayTag::RequestGameplayTag(FName("GameplayCue.Camera.Shake.HangingBody"));

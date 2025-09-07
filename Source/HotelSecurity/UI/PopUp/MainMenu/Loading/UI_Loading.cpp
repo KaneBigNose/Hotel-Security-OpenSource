@@ -28,17 +28,13 @@ void UUI_Loading::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 	UUI_Controller* UICon = GetGameInstance()->GetSubsystem<UUI_Controller>();
 	UICon->CloseStrongPopUpWidget(EInputModeType::GameOnly);
 
-	bool bPopUpTutorial;
-
 	UHSSave_Tutorial* Save_Tutorial = Cast<UHSSave_Tutorial>(UGameplayStatics::LoadGameFromSlot(TEXT("HSSave_Tutorial"), 0));
-	Save_Tutorial->LoadTutorialData(bPopUpTutorial);
-
-	if (bPopUpTutorial)
+	if (Save_Tutorial->LoadTutorialData())
 	{
 		UICon->OpenPopUpWidget(TutorialClass);
 	}
 
-	Save_Tutorial->SaveTutorialData(false);
+	Save_Tutorial->SaveTutorialData();
 }
 
 #pragma endregion

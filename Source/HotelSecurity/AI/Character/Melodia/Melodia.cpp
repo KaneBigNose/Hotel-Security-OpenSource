@@ -30,10 +30,12 @@ AMelodia::AMelodia(const FObjectInitializer& ObjectInitializer)
 	MelodySphere = CreateDefaultSubobject<USphereComponent>(TEXT("MelodySphere"));
 	MelodySphere->SetupAttachment(RootComponent);
 	MelodySphere->SetSphereRadius(1600.f);
+	MelodySphere->OnComponentBeginOverlap.RemoveDynamic(this, &ThisClass::OnMelodySphereBeginOverlap);
 	MelodySphere->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::OnMelodySphereBeginOverlap);
+	MelodySphere->OnComponentEndOverlap.RemoveDynamic(this, &ThisClass::OnMelodySphereEndOverlap);
 	MelodySphere->OnComponentEndOverlap.AddDynamic(this, &ThisClass::OnMelodySphereEndOverlap);
 
-	KillPlayerCapsule->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	KillCapsule->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 	DefaultSound = CreateDefaultSubobject<UHSCharacterSound>(TEXT("DefaultSound"));
 }

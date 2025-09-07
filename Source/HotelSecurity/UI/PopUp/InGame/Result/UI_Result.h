@@ -37,6 +37,9 @@ protected:
 public:
 	void ShowReportResultImage(bool bSuccessed);
 
+protected:
+	float TotalTime = 0;
+
 #pragma endregion
 
 #pragma region Input

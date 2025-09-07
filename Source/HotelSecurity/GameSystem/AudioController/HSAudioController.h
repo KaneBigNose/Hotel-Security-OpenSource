@@ -17,7 +17,10 @@ enum class EBGMType : uint8
 	HeartBeat		UMETA(DisplayName = "HeartBeat"),
 	GameClear		UMETA(DisplayName = "GameClear"),
 	GameOver		UMETA(DisplayName = "GameOver"),
-	ReportResult	UMETA(DisplayName = "ReportResult")
+	ReportResult	UMETA(DisplayName = "ReportResult"),
+	TimeStopStart	UMETA(DisplayName = "TimeStopStart"),
+	TimeStop		UMETA(DisplayName = "TimeStop"),
+	TimeStopEnd		UMETA(DisplayName = "TimeStopEnd")
 };
 
 UENUM(BlueprintType)
@@ -88,8 +91,13 @@ protected:
 	UFUNCTION()
 	void TagChangeEvent_Report(FGameplayTag ChangeTag, int32 NewCount);
 
+	UFUNCTION()
+	void TimeStopFunc(bool bIsStop);
+
 protected:
 	EBGMType SelectedBGM;
+
+	bool bIsTimeStop = false;
 
 	UPROPERTY()
 	TObjectPtr<class UAudioComponent> BGM_AudioComponent;

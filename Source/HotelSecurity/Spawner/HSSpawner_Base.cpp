@@ -12,24 +12,31 @@ AHSSpawner_Base::AHSSpawner_Base(const FObjectInitializer& ObjectInitializer)
 	PrimaryActorTick.bCanEverTick = false;
 }
 
-AHSSpawner_Base::~AHSSpawner_Base()
-{
-	for (auto DeleteObject : SpawnedObjects)
-	{
-		DeleteObject->Destroy();
-		DeleteObject = nullptr;
-	}
-
-	ObjectClasses.Empty();
-	SpawnedObjects.Empty();
-}
-
 void AHSSpawner_Base::BeginPlay()
 {
 	Super::BeginPlay();
 
 	FindObjectBPClasses();
 	SpawnObjects();
+}
+
+void AHSSpawner_Base::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	for (auto DeleteObject : SpawnedObjects)
+	{
+		if (!DeleteObject)
+		{
+			continue;
+		}
+
+		DeleteObject->Destroy();
+		DeleteObject = nullptr;
+	}
+
+	ObjectClasses.Empty();
+	SpawnedObjects.Empty();
+
+	Super::EndPlay(EndPlayReason);
 }
 
 #pragma endregion

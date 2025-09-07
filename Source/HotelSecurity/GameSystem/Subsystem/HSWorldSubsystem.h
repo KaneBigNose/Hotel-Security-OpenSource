@@ -44,7 +44,7 @@ public:
 	class UDataTable* GetRespawnDataTable();
 
 	struct FSpawnInfo_Anomaly* GetAnomalyData(int32 RowNum, EMapType CurrentMap = EMapType::None);
-	struct FSpawnInfo_Anomaly* GetAnomalyData(FString TargetName);
+	struct FSpawnInfo_Anomaly* GetAnomalyData(FString TargetName, FString TargetPlace);
 
 	struct FSpawnInfo_Monster* GetMonsterData(int32 RowNum, EMapType CurrentMap = EMapType::None);
 	struct FSpawnInfo_Monster* GetMonsterData(FString TargetName);
@@ -76,11 +76,20 @@ public:
 	FAnomalyEventOccur AnomalyEventOccur;
 
 protected:
+	UFUNCTION()
+	void StopAnomalyEvent(bool bIsStop);
+
 	void AnomalyEventTimer();
 	void StartAnomalyEvent();
 	void CheckAnomalyCount();
 
+public:
+	UPROPERTY()
+	TArray<FString> AnomalyList;
+
 protected:
+	FTimerHandle AnomalyEventHandle;
+
 	int32 CurrentAnomaly = 0;
 	const int32 MaxAnomaly = 5;
 

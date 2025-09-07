@@ -18,6 +18,18 @@ AHSInteractLight::AHSInteractLight(const FObjectInitializer& ObjectInitializer)
 	PointLight->bAffectsWorld = true;
 }
 
+void AHSInteractLight::BeginPlay()
+{
+	Super::BeginPlay();
+
+	if (bIsTurnOn)
+	{
+		return;
+	}
+
+	InteractThisObject();
+}
+
 #pragma endregion
 
 #pragma region Interact

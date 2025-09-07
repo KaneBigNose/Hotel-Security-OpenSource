@@ -37,6 +37,7 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 protected:
 	UPROPERTY()
@@ -50,7 +51,7 @@ protected:
 #pragma region Data
 
 public:
-	FString LocationData;
+	FString PlaceData;
 	FString ObjectData;
 	FString AnomalyData;
 
@@ -73,14 +74,23 @@ protected:
 
 #pragma endregion
 
+#pragma region Localization
+
+protected:
+	static FText PlaceText;
+	static FText ObjectText;
+	static FText AnomalyText;
+
+#pragma endregion
+
 #pragma region Anomaly Event
 
 public:
 	void StartRandomAnomaly(int32 ActorNum);
 
-	bool bApplyEvent = true;
-
 protected:
+	void SettingAnomalyData();
+
 	void Anomaly_Move(int32 ActorNum);
 	void Anomaly_Rotate();
 	void Anomaly_Expand();
@@ -88,8 +98,11 @@ protected:
 	void Anomaly_Disappear();
 	void Anomaly_Change(int32 ActorNum);
 	void Anomaly_Fly(int32 ActorNum);
-	void Anomaly_Darkness();
+	void Anomaly_Darkness(int32 ActorNum);
 	void Anomaly_Ghost(int32 ActorNum);
+
+public:
+	bool bApplyEvent = true;
 
 protected:
 	UPROPERTY(EditAnywhere)
@@ -98,20 +111,17 @@ protected:
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<class UStaticMesh> AnomalyChangeMesh;
 
-	UPROPERTY(EditAnywhere)
-	TObjectPtr<class UStaticMeshComponent> DarknessComp;
-
 	UPROPERTY()
 	TObjectPtr<class UMaterial> DarknessMaterial;
 
 	UPROPERTY()
-	TObjectPtr<class UMaterial> DefalutMaterial;
+	TObjectPtr<class UMaterialInterface> DefalutMaterial;
 
 	UPROPERTY()
 	TObjectPtr<class UMaterial> GhostMaterial;
 
 protected:
-	TArray<EAnomalyType> Anomalys;
+	static TArray<EAnomalyType> Anomalys;
 
 	EAnomalyType CurrentAnomaly = EAnomalyType::None;
 
@@ -124,18 +134,15 @@ protected:
 	UPROPERTY(EditAnywhere)
 	bool bCanFly = true;
 
-	UPROPERTY(EditAnywhere)
-	float DarknessRadius = 200;
-
 #pragma endregion
 
 #pragma region AnomalyFix
 
 public:
-	bool FixCurrentAnomaly(FString CheckLocation, FString CheckObject, FString CheckAnomaly);
+	bool FixCurrentAnomaly(FString CheckPlace, FString CheckObject, FString CheckAnomaly);
 
 protected:
-	bool CheckCanFix(FString CheckLocation, FString CheckObject, FString CheckAnomaly);
+	bool CheckCanFix(FString CheckPlace, FString CheckObject, FString CheckAnomaly);
 
 	void Fix_Move();
 	void Fix_Rotate();

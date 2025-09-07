@@ -48,8 +48,8 @@ void UUI_Report::NativeConstruct()
 	Super::NativeConstruct();
 
 	PreviewImageRendering();
-
 	ReportingHighlight();
+	SetRemainChanceImage();
 }
 
 #pragma endregion
@@ -93,12 +93,12 @@ void UUI_Report::SettingNames()
 		if (GameInstance->SelectedLanguage == ELanguageType::English)
 		{
 			PlaceNames.AddUnique(Data->Place_En);
-			ObjectNames.AddUnique(Data->Object_En);
+			ObjectNames.Add(Data->Object_En);
 		}
 		else if (GameInstance->SelectedLanguage == ELanguageType::Korean)
 		{
 			PlaceNames.AddUnique(Data->Place_Ko);
-			ObjectNames.AddUnique(Data->Object_Ko);
+			ObjectNames.Add(Data->Object_Ko);
 		}
 	}
 	
@@ -139,6 +139,7 @@ void UUI_Report::CreateButtons(const TArray<FString>& Names, TArray<TObjectPtr<U
 
 		case EButtonValueType::Object:
 			NewButton->ObjectValue = SettingName;
+			NewButton->ObjectIndex = Index + 1;
 			break;
 
 		case EButtonValueType::Anomaly:
@@ -172,6 +173,36 @@ void UUI_Report::PreviewImageRendering()
 	UMaterialInstanceDynamic* DynMat = UMaterialInstanceDynamic::Create(ObjectPreview_Mat, this);
 	DynMat->SetTextureParameterValue("RenderTarget", ObjectPreview);
 	PreviewImage->SetBrushFromMaterial(DynMat);
+}
+
+#pragma endregion
+
+#pragma region Remain Chance
+
+void UUI_Report::SetRemainChanceImage()
+{
+	FSlateBrush RemainBrush, DeadBrush;
+
+	RemainBrush.SetResourceObject(RemainChance);
+	DeadBrush.SetResourceObject(DeadChance);
+
+	switch (Subsystem->FailCount)
+	{
+	case 0:
+		Chance1->SetBrush(RemainBrush);
+		Chance2->SetBrush(RemainBrush);
+		Chance3->SetBrush(RemainBrush);
+		break;
+
+	case 3:
+		Chance3->SetBrush(DeadBrush);
+
+	case 2:
+		Chance2->SetBrush(DeadBrush);
+
+	case 1:
+		Chance1->SetBrush(DeadBrush);
+	}
 }
 
 #pragma endregion

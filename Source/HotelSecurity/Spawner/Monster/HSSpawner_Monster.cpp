@@ -20,19 +20,22 @@ void AHSSpawner_Monster::BeginPlay()
 	}
 
 	FTimerHandle HangingBodyHandle;
+	TimerHandles.Add(HangingBodyHandle);
 	GetWorld()->GetTimerManager().SetTimer(HangingBodyHandle, [this]()
 		{
 			FSpawnInfo_Monster* Data = static_cast<FSpawnInfo_Monster*>(GetObjectData(7, EMapType::None));
 
 			FVector SpawnLocation = FVector(Data->LocationX, Data->LocationY, Data->LocationZ);
 			GetWorld()->SpawnActor<AActor>(ObjectClasses[3], SpawnLocation, FRotator::ZeroRotator);
-		},
-		100.f, true);
+		}, 100.f, true);
 }
 
 void AHSSpawner_Monster::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
-	GetWorld()->GetTimerManager().ClearAllTimersForObject(this);
+	for (auto Target : TimerHandles)
+	{
+		GetWorld()->GetTimerManager().ClearTimer(Target);
+	}
 
 	Super::EndPlay(EndPlayReason);
 }
@@ -62,12 +65,16 @@ FSpawnInfo* AHSSpawner_Monster::GetObjectData(int32 RowNum, EMapType CurrentMap)
 	case EMapType::Hospital:
 		TargetRowNum += 7;
 		break;
+
+	case EMapType::OldMotel:
+		TargetRowNum += 11;
+		break;
 	}
 
 	return SpawnDataTable->FindRow<FSpawnInfo>(*FString::FromInt(TargetRowNum), TEXT(""));
 }
 
-FSpawnInfo* AHSSpawner_Monster::GetObjectData(FString TargetName)
+FSpawnInfo* AHSSpawner_Monster::GetObjectData(FString TargetName, FString TargetPlace)
 {
 	FSpawnInfo_Monster* MonsterInfo = nullptr;
 
@@ -103,6 +110,7 @@ void AHSSpawner_Monster::SpawnObjects()
 		EMonsterType MonsterName = Data->MonsterName;
 
 		FTimerHandle SpawnHandle;
+		TimerHandles.Add(SpawnHandle);
 		GetWorld()->GetTimerManager().SetTimer(SpawnHandle, [this, Index, SpawnLocation, ObjectClass, MonsterName]()
 		{
 			if (!IsValid(this) || !ObjectClass || !GetWorld())

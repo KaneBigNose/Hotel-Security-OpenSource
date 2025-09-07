@@ -23,7 +23,7 @@ AHotelManager::AHotelManager(const FObjectInitializer& ObjectInitializer)
 	FaceMask = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("FaceMask"));
 	FaceMask->SetupAttachment(GetMesh(), FName("HeadSocket"));
 
-	KillPlayerCapsule->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	KillCapsule->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 	InteractComp->SetActive(false);
 	InteractComp->SetComponentTickEnabled(false);
@@ -32,7 +32,9 @@ AHotelManager::AHotelManager(const FObjectInitializer& ObjectInitializer)
 	DoorFind = CreateDefaultSubobject<USphereComponent>(TEXT("DoorFind"));
 	DoorFind->SetupAttachment(RootComponent);
 	DoorFind->SetSphereRadius(800);
+	DoorFind->OnComponentBeginOverlap.RemoveDynamic(this, &ThisClass::DoorFindBeginOverlap);
 	DoorFind->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::DoorFindBeginOverlap);
+	DoorFind->OnComponentEndOverlap.RemoveDynamic(this, &ThisClass::DoorFindEndOverlap);
 	DoorFind->OnComponentEndOverlap.AddDynamic(this, &ThisClass::DoorFindEndOverlap);
 }
 

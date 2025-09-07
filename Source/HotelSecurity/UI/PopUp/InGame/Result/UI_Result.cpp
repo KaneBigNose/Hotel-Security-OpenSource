@@ -2,12 +2,9 @@
 
 #include "UI/PopUp/InGame/Result/UI_Result.h"
 #include "UI/Controller/UI_Controller.h"
-#include "GameSystem/GameInstance/HSGameInstance.h"
-#include "GameSystem/Subsystem/HSWorldSubsystem.h"
 #include "GAS/AbilitySystemComponent/HSAbilitySystemComponent.h"
 #include "GAS/GameplayTag/HSGameplayTags.h"
 #include "Components/TextBlock.h"
-#include "Kismet/GameplayStatics.h"
 
 #define LOCTEXT_NAMESPACE "UI_Result"
 
@@ -27,16 +24,16 @@ void UUI_Result::NativeTick(FGeometry const& MyGeometry, float InDeltaTime)
 {
 	Super::NativeTick(MyGeometry, InDeltaTime);
 
-	static float TotalTime = 0;
-
 	TotalTime += InDeltaTime;
 
-	if (TotalTime > 2)
+	if (TotalTime > 2.5f)
 	{
 		ASC->RemoveLooseGameplayTag(HSGameplayTags::UI::PopUp::Report);
 
 		UUI_Controller* UICon = GetGameInstance()->GetSubsystem<UUI_Controller>();
 		UICon->ClosePopUpWidget(EInputModeType::GameOnly);
+
+		TotalTime = 0;
 	}
 }
 
@@ -47,14 +44,6 @@ void UUI_Result::NativeTick(FGeometry const& MyGeometry, float InDeltaTime)
 void UUI_Result::ShowReportResultImage(bool bSuccessed)
 {
 	SetVisibility(ESlateVisibility::Visible);
-
-	UHSGameInstance* GameInstance = GetWorld()->GetGameInstance<UHSGameInstance>();
-	UHSWorldSubsystem* Subsystem = GetWorld()->GetSubsystem<UHSWorldSubsystem>();
-
-	if (Subsystem->FailCount >= Subsystem->MaxFailCount)
-	{
-		return;
-	}
 
 	FText PrintMessage;
 

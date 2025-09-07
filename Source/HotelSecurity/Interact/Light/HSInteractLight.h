@@ -16,6 +16,9 @@ class HOTEL_SECURITY_API AHSInteractLight : public AHSInteractObjectBase
 public:
 	AHSInteractLight(const FObjectInitializer& ObjectInitializer);
 
+protected:
+	virtual void BeginPlay() override;
+
 #pragma endregion
 
 #pragma region Interact
@@ -33,6 +36,9 @@ public:
 protected:
 	UPROPERTY(EditAnywhere, Category = "Interact")
 	TObjectPtr<class UPointLightComponent> PointLight;
+
+	UPROPERTY(EditAnywhere)
+	bool bIsTurnOn = true;
 
 #pragma endregion
 

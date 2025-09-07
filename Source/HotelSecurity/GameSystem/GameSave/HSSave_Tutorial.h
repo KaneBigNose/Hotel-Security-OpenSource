@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/SaveGame.h"
+#include "GameSystem/GameInstance/HSGameInstance.h"
 #include "HSSave_Tutorial.generated.h"
 
 UCLASS()
@@ -12,10 +13,16 @@ class HOTEL_SECURITY_API UHSSave_Tutorial : public USaveGame
 	GENERATED_BODY()
 	
 public:
-	void LoadTutorialData(bool& bFirst);
-	void SaveTutorialData(bool bFirst);
+	bool LoadTutorialData(EMapType SelectedMap = UHSGameInstance::SelectedMap);
+	void SaveTutorialData(EMapType SelectedMap = UHSGameInstance::SelectedMap);
 
 protected:
 	UPROPERTY(SaveGame)
-	bool bIsFirstPlay = true;
+	bool bIsHotelFirst = true;
+
+	UPROPERTY(SaveGame)
+	bool bIsMineFirst = true;
+
+	UPROPERTY(SaveGame)
+	bool bIsHospitalFirst = true;
 };

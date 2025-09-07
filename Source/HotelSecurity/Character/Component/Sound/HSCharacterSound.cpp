@@ -17,6 +17,7 @@ void UHSCharacterSound::BeginPlay()
 	BaseAC->RegisterComponent();
 	BaseAC->AttachToComponent(GetOwner()->GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
 	BaseAC->Sound = BaseSound;
+	BaseAC->OnAudioFinished.RemoveDynamic(this, &ThisClass::PlayBaseSound);
 	BaseAC->OnAudioFinished.AddDynamic(this, &ThisClass::PlayBaseSound);
 
 	PlayBaseSound();

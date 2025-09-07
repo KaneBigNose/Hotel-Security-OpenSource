@@ -64,9 +64,6 @@ protected:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<class UUI_PopUp_Base> SettingClass;
 
-	UPROPERTY(EditAnywhere)
-	TSubclassOf<class UUI_PopUp_Base> CreditClass;
-
 #pragma endregion
 
 };

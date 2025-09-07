@@ -9,6 +9,7 @@
 #include "Perception/AISenseConfig_Hearing.h"
 #include "GAS/AbilitySystemComponent/HSAbilitySystemComponent.h"
 #include "GAS/GameplayTag/HSGameplayTags.h"
+#include "GameSystem/GameMode/HSGameMode.h"
 
 #pragma region Base
 
@@ -25,7 +26,7 @@ void UBTS_FindPlayer::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMem
 {
 	Super::TickNode(OwnerComp, NodeMemory, DeltaSeconds);
 
-	if (!bCanFind)
+	if (!bCanFind || bIsTimeStop)
 	{
 		return;
 	}
@@ -36,6 +37,13 @@ void UBTS_FindPlayer::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMem
 		ASC = Cast<UHSAbilitySystemComponent>(Owner->GetAbilitySystemComponent());
 		OwnerPerception = Cast<UAIPerceptionComponent>(OwnerComp.GetAIOwner()->GetPerceptionComponent());
 		OwnerBB = OwnerComp.GetBlackboardComponent();
+	}
+
+	if (!GameMode)
+	{
+		GameMode = GetWorld()->GetAuthGameMode<AHSGameMode>();
+		GameMode->TimeStop.RemoveDynamic(this, &ThisClass::StopFind);
+		GameMode->TimeStop.AddDynamic(this, &ThisClass::StopFind);
 	}
 
 	TArray<AActor*> SightedActors;
@@ -92,6 +100,15 @@ void UBTS_FindPlayer::FindPlayer(AActor* CheckActor)
 			OwnerBB->SetValueAsObject(BlackboardKey.SelectedKeyName, nullptr);
 			TargetASC->RemoveLooseGameplayTag(HSGameplayTags::State::Chased);
 		}, 20, false);
+}
+
+#pragma endregion
+
+#pragma region Time Stop
+
+void UBTS_FindPlayer::StopFind(bool bIsStop)
+{
+	bIsTimeStop = bIsStop;
 }
 
 #pragma endregion

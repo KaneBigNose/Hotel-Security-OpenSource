@@ -6,6 +6,7 @@
 #include "Kismet/KismetSystemLibrary.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameSystem/GameInstance/HSGameInstance.h"
+#include "GameSystem/Subsystem/HSWorldSubsystem.h"
 
 #pragma region Base
 
@@ -16,6 +17,44 @@ void UUI_GameOver::NativeOnInitialized()
 	ReplayButton->OnClicked.AddDynamic(this, &ThisClass::ClickReplayButton);
 	MainMenuButton->OnClicked.AddDynamic(this, &ThisClass::ClickMainMenuButton);
 	QuitButton->OnClicked.AddDynamic(this, &ThisClass::ClickQuitButton);
+}
+
+void UUI_GameOver::NativeConstruct()
+{
+	Super::NativeConstruct();
+
+	UHSWorldSubsystem* Subsystem = GetWorld()->GetSubsystem<UHSWorldSubsystem>();
+
+	if (Subsystem->AnomalyList.IsEmpty())
+	{
+		List->SetVisibility(ESlateVisibility::Hidden);
+		return;
+	}
+
+	if (Subsystem->AnomalyList.Num() >= 1)
+	{
+		List1->SetText(FText::FromString(Subsystem->AnomalyList[0]));
+	}
+
+	if (Subsystem->AnomalyList.Num() >= 2)
+	{
+		List2->SetText(FText::FromString(Subsystem->AnomalyList[1]));
+	}
+
+	if (Subsystem->AnomalyList.Num() >= 3)
+	{
+		List3->SetText(FText::FromString(Subsystem->AnomalyList[2]));
+	}
+
+	if (Subsystem->AnomalyList.Num() >= 4)
+	{
+		List4->SetText(FText::FromString(Subsystem->AnomalyList[3]));
+	}
+
+	if (Subsystem->AnomalyList.Num() >= 5)
+	{
+		List5->SetText(FText::FromString(Subsystem->AnomalyList[4]));
+	}
 }
 
 #pragma endregion

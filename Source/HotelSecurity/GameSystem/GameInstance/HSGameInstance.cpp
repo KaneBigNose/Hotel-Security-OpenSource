@@ -20,6 +20,12 @@ UHSGameInstance::UHSGameInstance()
 		StageClearClass = ClearClassFinder.Class;
 	}
 
+	static ConstructorHelpers::FClassFinder<UUI_PopUp_Base> CreditClassFinder(TEXT("/Game/HotelSecurity/UI/Blueprint/InGame/WBP_Credit.WBP_Credit_C"));
+	if (CreditClassFinder.Succeeded())
+	{
+		CreditClass = CreditClassFinder.Class;
+	}
+
 	static ConstructorHelpers::FClassFinder<UUI_PopUp_Base> LoadingClassFinder(TEXT("/Game/HotelSecurity/UI/Blueprint/MainMenu/WBP_Loading.WBP_Loading_C"));
 	if (LoadingClassFinder.Succeeded())
 	{
@@ -76,11 +82,19 @@ void UHSGameInstance::OpenMap(const EMapType& MapType)
 
 void UHSGameInstance::StageClearFunc()
 {
-	UUI_Controller* UICon = GetSubsystem<UUI_Controller>();
-	UICon->OpenPopUpWidget(StageClearClass);
-
 	UHSSave_Clear* Save_Clear = Cast<UHSSave_Clear>(UGameplayStatics::LoadGameFromSlot(TEXT("HSSave_Clear"), 0));
 	Save_Clear->SaveClearData(SelectedMap);
+
+	UUI_Controller* UICon = GetSubsystem<UUI_Controller>();
+
+	if (SelectedMap == EMapType::OldMotel)
+	{
+		UICon->OpenPopUpWidget(CreditClass);
+
+		return;
+	}
+
+	UICon->OpenPopUpWidget(StageClearClass);
 }
 
 #pragma endregion

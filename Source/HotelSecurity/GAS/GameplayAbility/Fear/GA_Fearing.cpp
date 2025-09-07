@@ -26,6 +26,7 @@ void UGA_Fearing::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const
 	UHSAbilitySystemComponent* TargetASC = Cast<UHSAbilitySystemComponent>(Target->GetAbilitySystemComponent());
 	UAnimInstance* Anim = Owner->GetMesh()->GetAnimInstance();
 
+	Anim->OnMontageEnded.RemoveDynamic(this, &ThisClass::EndMontage);
 	Anim->OnMontageEnded.AddDynamic(this, &ThisClass::EndMontage);
 
 	ASC->AddUniqueGameplayTag(HSGameplayTags::Action::Fearing);

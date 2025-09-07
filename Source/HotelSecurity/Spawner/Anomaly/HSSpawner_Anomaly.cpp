@@ -29,26 +29,28 @@ FSpawnInfo* AHSSpawner_Anomaly::GetObjectData(int32 RowNum, EMapType CurrentMap)
 	case EMapType::Hospital:
 		TargetRowNum += 58;
 		break;
+
+	case EMapType::OldMotel:
+		TargetRowNum += 85;
+		break;
 	}
 
 	return SpawnDataTable->FindRow<FSpawnInfo>(*FString::FromInt(TargetRowNum), TEXT(""));
 }
 
-FSpawnInfo* AHSSpawner_Anomaly::GetObjectData(FString TargetName)
+FSpawnInfo* AHSSpawner_Anomaly::GetObjectData(FString TargetName, FString TargetPlace)
 {
 	FSpawnInfo_Anomaly* AnomalyInfo = nullptr;
-
-	FString CurrentMapName = HSEnumManager::GetEnumAsFString<EMapType>(UHSGameInstance::SelectedMap);
 
 	for (auto RowData : SpawnDataTable->GetRowMap())
 	{
 		AnomalyInfo = (FSpawnInfo_Anomaly*)RowData.Value;
 
-		if (AnomalyInfo->Object_En == TargetName && AnomalyInfo->Map_En == CurrentMapName)
+		if (AnomalyInfo->Object_En == TargetName && AnomalyInfo->Place_En == TargetPlace)
 		{
 			return AnomalyInfo;
 		}
-		else if (AnomalyInfo->Object_Ko == TargetName && AnomalyInfo->Map_En == CurrentMapName)
+		else if (AnomalyInfo->Object_Ko == TargetName && AnomalyInfo->Place_Ko == TargetPlace)
 		{
 			return AnomalyInfo;
 		}
@@ -74,12 +76,12 @@ void AHSSpawner_Anomaly::SpawnObjects()
 
 		if (UHSGameInstance::SelectedLanguage == ELanguageType::English)
 		{
-			Cast<AHSAnomalyBase>(SpawnedObject)->LocationData = Data->Place_En;
+			Cast<AHSAnomalyBase>(SpawnedObject)->PlaceData = Data->Place_En;
 			Cast<AHSAnomalyBase>(SpawnedObject)->ObjectData = Data->Object_En;
 		}
 		else if (UHSGameInstance::SelectedLanguage == ELanguageType::Korean)
 		{
-			Cast<AHSAnomalyBase>(SpawnedObject)->LocationData = Data->Place_Ko;
+			Cast<AHSAnomalyBase>(SpawnedObject)->PlaceData = Data->Place_Ko;
 			Cast<AHSAnomalyBase>(SpawnedObject)->ObjectData = Data->Object_Ko;
 		}
 		

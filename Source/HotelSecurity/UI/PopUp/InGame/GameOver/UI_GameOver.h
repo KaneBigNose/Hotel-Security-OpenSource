@@ -15,6 +15,7 @@ class HOTEL_SECURITY_API UUI_GameOver : public UUI_PopUp_InGame
 
 protected:
 	virtual void NativeOnInitialized() override;
+	virtual void NativeConstruct() override;
 
 #pragma endregion
 
@@ -49,6 +50,29 @@ protected:
 
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<class UButton> QuitButton;
+
+#pragma endregion
+
+#pragma region Anomaly
+
+protected:
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<class UTextBlock> List;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<class UTextBlock> List1;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<class UTextBlock> List2;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<class UTextBlock> List3;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<class UTextBlock> List4;
+
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<class UTextBlock> List5;
 
 #pragma endregion
 

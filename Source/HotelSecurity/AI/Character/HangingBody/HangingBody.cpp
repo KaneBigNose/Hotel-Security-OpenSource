@@ -20,6 +20,7 @@ AHangingBody::AHangingBody(const FObjectInitializer& ObjectInitializer)
 	FearingSphere = CreateDefaultSubobject<USphereComponent>(TEXT("FearingSphere"));
 	FearingSphere->SetupAttachment(RootComponent);
 	FearingSphere->SetSphereRadius(100.f);
+	FearingSphere->OnComponentBeginOverlap.RemoveDynamic(this, &ThisClass::FearingSphereBeginOverlap);
 	FearingSphere->OnComponentBeginOverlap.AddDynamic(this, &ThisClass::FearingSphereBeginOverlap);
 
 	MonsterAS->InitWalkSpeed(180);
@@ -27,7 +28,7 @@ AHangingBody::AHangingBody(const FObjectInitializer& ObjectInitializer)
 	MonsterAS->InitFearDamage(25);
 	GetCharacterMovement()->MaxWalkSpeed = MonsterAS->GetWalkSpeed();
 
-	KillPlayerCapsule->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	KillCapsule->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 	DefaultSound = CreateDefaultSubobject<UHSCharacterSound>(TEXT("DefaultSound"));
 }

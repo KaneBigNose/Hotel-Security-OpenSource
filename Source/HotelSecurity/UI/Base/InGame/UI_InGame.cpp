@@ -9,6 +9,7 @@
 #include "Components/ProgressBar.h"
 #include "Components/Image.h"
 #include "Components/CanvasPanelSlot.h"
+#include "Components/RetainerBox.h"
 #include "Character/Component/Interact/HSCharacterInteract.h"
 #include "GameSystem/Subsystem/HSWorldSubsystem.h"
 #include "GameSystem/GameMode/HSGameMode.h"
@@ -25,6 +26,8 @@
 
 #pragma region Base
 
+FChizizikOn UUI_InGame::ChizizikOn;
+
 void UUI_InGame::NativeOnInitialized()
 {
 	Super::NativeOnInitialized();
@@ -35,26 +38,43 @@ void UUI_InGame::NativeOnInitialized()
 	Subsystem = GetWorld()->GetSubsystem<UHSWorldSubsystem>();
 	UICon = GetGameInstance()->GetSubsystem<UUI_Controller>();
 
+	HSPlayer->GetInteractComponent()->CanInteract.RemoveDynamic(this, &ThisClass::ChangeAim);
 	HSPlayer->GetInteractComponent()->CanInteract.AddDynamic(this, &ThisClass::ChangeAim);
 	AimCanvasSlot = Cast<UCanvasPanelSlot>(AimImage->Slot);
 
+	Subsystem->AnomalyEventOccur.RemoveDynamic(this, &ThisClass::OccurAnomalyEvent);
 	Subsystem->AnomalyEventOccur.AddDynamic(this, &ThisClass::OccurAnomalyEvent);
 	AnomalyEventImage->SetVisibility(ESlateVisibility::Hidden);
 	AnomalyEventBack->SetVisibility(ESlateVisibility::Hidden);
 	AnomalyEventText->SetVisibility(ESlateVisibility::Hidden);
 
 	ASC->BindAttributeChange<UUI_InGame>(EBindDataType::FlashLife, this, &UUI_InGame::UpdateBattery, PlayerAS);
+	UAT_ConsumeBattery::FlashAction.RemoveDynamic(this, &ThisClass::SetVisibleBattery);
 	UAT_ConsumeBattery::FlashAction.AddDynamic(this, &ThisClass::SetVisibleBattery);
 	FlashBatteryBar->SetVisibility(ESlateVisibility::Hidden);
 
 	FearBar->SetVisibility(ESlateVisibility::Hidden);
 	ASC->BindAttributeChange<UUI_InGame>(EBindDataType::FearGage, this, &UUI_InGame::UpdateFearBar, PlayerAS);
 
+	Cast<AHSGameMode>(UGameplayStatics::GetGameMode(GetWorld()))->PlayTime.RemoveDynamic(this, &ThisClass::SetPlayTimeText);
 	Cast<AHSGameMode>(UGameplayStatics::GetGameMode(GetWorld()))->PlayTime.AddDynamic(this, &ThisClass::SetPlayTimeText);
 
+	UUI_Report::ReportStart.RemoveDynamic(this, &ThisClass::ShowReportingResult);
 	UUI_Report::ReportStart.AddDynamic(this, &ThisClass::ShowReportingResult);
 
 	ReportingText->SetVisibility(ESlateVisibility::Hidden);
+
+	Chizizik->SetVisibility(ESlateVisibility::Hidden);
+	ChizizikOn.RemoveDynamic(this, &ThisClass::ChizizikEffect);
+	ChizizikOn.AddDynamic(this, &ThisClass::ChizizikEffect);
+}
+
+void UUI_InGame::NativeDestruct()
+{
+	GetWorld()->GetTimerManager().ClearTimer(ReportingTextHandle);
+	GetWorld()->GetTimerManager().ClearTimer(AnimationHandle);
+
+	Super::NativeDestruct();
 }
 
 #pragma endregion
@@ -177,7 +197,7 @@ void UUI_InGame::SetPlayTimeText(int32 Hour, int32 Minute, FString Center)
 
 #pragma region Report
 
-void UUI_InGame::ShowReportingResult(FString SelectedLocation, FString SelectedObject, FString SelectedAnomaly)
+void UUI_InGame::ShowReportingResult(FString SelectedPlace, FString SelectedObject, FString SelectedAnomaly)
 {
 	PrintMessage1 = LOCTEXT("key3", "Reporting");
 	PrintMessage2 = LOCTEXT("key4", "Reporting.");
@@ -213,12 +233,18 @@ void UUI_InGame::ShowReportingResult(FString SelectedLocation, FString SelectedO
 			}
 		}, 0.5f, true);
 
-	FTimerHandle ReportingTextHandle;
-	GetWorld()->GetTimerManager().SetTimer(ReportingTextHandle, [this, SelectedLocation, SelectedObject, SelectedAnomaly]()
+	GetWorld()->GetTimerManager().SetTimer(ReportingTextHandle, [this, SelectedPlace, SelectedObject, SelectedAnomaly]()
 		{
-			int32 SelectedNumber = Subsystem->GetAnomalyData(SelectedObject)->Number - 1;
+			int32 SelectedNumber = Subsystem->GetAnomalyData(SelectedObject, SelectedPlace)->Number - 1;
+			bool bSuccessed = Cast<AHSAnomalyBase>(Subsystem->GetAnomalySpawner()->GetSpawnedObjects()[SelectedNumber])->FixCurrentAnomaly(SelectedPlace, SelectedObject, SelectedAnomaly);
+
+			if (Subsystem->FailCount >= Subsystem->MaxFailCount)
+			{
+				return;
+			}
+
 			UUI_Result* ResultWidget = Cast<UUI_Result>(UICon->OpenPopUpWidget(ResultClass));
-			ResultWidget->ShowReportResultImage(Cast<AHSAnomalyBase>(Subsystem->GetAnomalySpawner()->GetSpawnedObjects()[SelectedNumber])->FixCurrentAnomaly(SelectedLocation, SelectedObject, SelectedAnomaly));
+			ResultWidget->ShowReportResultImage(bSuccessed);
 
 			ReportingText->SetVisibility(ESlateVisibility::Hidden);
 
@@ -226,6 +252,21 @@ void UUI_InGame::ShowReportingResult(FString SelectedLocation, FString SelectedO
 
 			GetWorld()->GetTimerManager().ClearTimer(AnimationHandle);
 		}, 10, false);
+}
+
+#pragma endregion
+
+#pragma region Chizizik
+
+void UUI_InGame::ChizizikEffect(bool bApply)
+{
+	if (bApply)
+	{
+		Chizizik->SetVisibility(ESlateVisibility::Visible);
+		return;
+	}
+
+	Chizizik->SetVisibility(ESlateVisibility::Hidden);
 }
 
 #pragma endregion

@@ -6,5 +6,8 @@ Row,Number,Name,Group,Path
 5,5,GameClear,BGM,/AssetContent/Sound/BGM/BGM_GameClear.BGM_GameClear
 6,6,GameOver,BGM,/AssetContent/Sound/BGM/BGM_GameOver.BGM_GameOver
 7,7,ReportResult,BGM,/AssetContent/Sound/BGM/BGM_Result.BGM_Result
-8,8,Occurrence,Anomaly,/AssetContent/Sound/UI/Anomaly_Occurrence.Anomaly_Occurrence
-9,9,Warning,Anomaly,/AssetContent/Sound/UI/Anomaly_Warning.Anomaly_Warning
+8,8,TimeStopStart,BGM,/AssetContent/Sound/BGM/BGM_TimeStop_Start.BGM_TimeStop_Start
+9,9,TimeStop,BGM,/AssetContent/Sound/BGM/BGM_TimeStop.BGM_TimeStop
+10,10,TimeStopEnd,BGM,/AssetContent/Sound/BGM/BGM_TimeStop_End.BGM_TimeStop_End
+11,11,Occurrence,Anomaly,/AssetContent/Sound/UI/Anomaly_Occurrence.Anomaly_Occurrence
+12,12,Warning,Anomaly,/AssetContent/Sound/UI/Anomaly_Warning.Anomaly_Warning

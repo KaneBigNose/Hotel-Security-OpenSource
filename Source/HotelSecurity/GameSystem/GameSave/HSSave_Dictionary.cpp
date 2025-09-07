@@ -37,6 +37,15 @@ bool UHSSave_Dictionary::LoadDictionaryData(EMonsterType MonsterName)
 
 	case EMonsterType::PlagueDoctor:
 		return Save_Dictionary->bFindPlagueDoctor;
+
+	case EMonsterType::DeadWave:
+		return Save_Dictionary->bFindDeadWave;
+
+	case EMonsterType::Eclipser:
+		return Save_Dictionary->bFindEclipser;
+
+	case EMonsterType::TimeEater:
+		return Save_Dictionary->bFindTimeEater;
 	}
 
 	return false;
@@ -54,6 +63,9 @@ void UHSSave_Dictionary::SaveDictionaryData(EMonsterType MonsterName)
 	Save_Dictionary->bFindNurse = LoadDictionaryData(EMonsterType::Nurse);
 	Save_Dictionary->bFindMelodia = LoadDictionaryData(EMonsterType::Melodia);
 	Save_Dictionary->bFindPlagueDoctor = LoadDictionaryData(EMonsterType::PlagueDoctor);
+	Save_Dictionary->bFindDeadWave = LoadDictionaryData(EMonsterType::DeadWave);
+	Save_Dictionary->bFindEclipser = LoadDictionaryData(EMonsterType::Eclipser);
+	Save_Dictionary->bFindTimeEater = LoadDictionaryData(EMonsterType::TimeEater);
 
 	switch (MonsterName)
 	{
@@ -87,6 +99,18 @@ void UHSSave_Dictionary::SaveDictionaryData(EMonsterType MonsterName)
 
 	case EMonsterType::PlagueDoctor:
 		Save_Dictionary->bFindPlagueDoctor = true;
+		break;
+
+	case EMonsterType::DeadWave:
+		Save_Dictionary->bFindDeadWave = true;
+		break;
+
+	case EMonsterType::Eclipser:
+		Save_Dictionary->bFindEclipser = true;
+		break;
+
+	case EMonsterType::TimeEater:
+		Save_Dictionary->bFindTimeEater = true;
 		break;
 	}
 

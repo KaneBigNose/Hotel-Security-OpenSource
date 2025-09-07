@@ -84,3 +84,24 @@ Row,Number,Map_En,Map_Ko,Object_En,Object_Ko,Place_En,Place_Ko,LocationX,Locatio
 83,25,Hospital,병원,Warning Sign,경고 표시,Floor 2,2층,-1810,-570,1545,-180,90,0,-1810,-1140,1545,/Game/HotelSecurity/Anomaly/Hospital/2F/BP_Sign_Warning.BP_Sign_Warning_C
 84,26,Hospital,병원,Wheel Chair,휠체어,Floor 1,1층,-590,760,-140,90,0,0,-160,760,-140,/Game/HotelSecurity/Anomaly/Hospital/1F/BP_WheelChair.BP_WheelChair_C
 85,27,Hospital,병원,X-Ray,엑스레이,Floor 2,2층,-1800,970,1380,0,0,-90,-1800,970,1030,/Game/HotelSecurity/Anomaly/Hospital/2F/BP_XRay.BP_Xray_C
+86,1,OldMotel,옛 모텔,Bathtub,욕조,BlueDoor 1F,파란문 1층,1785,-995,0,0,0,0,1650,-995,0,/Game/HotelSecurity/Anomaly/OldMotel/BlueDoor_1F/BP_Bathtub.BP_Bathtub_C
+87,2,OldMotel,옛 모텔,TV,텔레비전,BlueDoor 1F,파란문 1층,1135,135,30,0,0,90,1445,135,30,/Game/HotelSecurity/Anomaly/OldMotel/BlueDoor_1F/BP_TV.BP_TV_C
+88,3,OldMotel,옛 모텔,Lamp,램프,BlueDoor 1F,파란문 1층,1150,1635,0,0,0,0,870,1920,0,/Game/HotelSecurity/Anomaly/OldMotel/BlueDoor_1F/BP_Lamp.BP_Lamp_C
+89,4,OldMotel,옛 모텔,Bed,침대,BlueDoor 2F,파란문 2층,1340,2595,405,0,0,-90,1340,2490,405,/Game/HotelSecurity/Anomaly/OldMotel/BlueDoor_2F/BP_Bed.BP_Bed_C
+90,5,OldMotel,옛 모텔,Toilet,변기,BlueDoor 2F,파란문 2층,1640,1065,405,0,0,180,1150,1065,405,/Game/HotelSecurity/Anomaly/OldMotel/BlueDoor_2F/BP_Toilet.BP_Toilet_C
+91,6,OldMotel,옛 모텔,Ceiling Fan,천장 펜,BlueDoor 2F,파란문 2층,1125,-625,800,0,0,0,870,-625,800,/Game/HotelSecurity/Anomaly/OldMotel/BlueDoor_2F/BP_CeilingFan.BP_CeilingFan_C
+92,7,OldMotel,옛 모텔,Mirror,거울,WhiteDoor 1F,흰문 1층,1960,1285,215,90,0,0,2460,1285,215,/Game/HotelSecurity/Anomaly/OldMotel/WhiteDoor_1F/BP_Mirror.BP_Mirror_C
+93,8,OldMotel,옛 모텔,Chiar,의자,WhiteDoor 1F,흰문 1층,2455,160,0,0,0,0,2170,-150,0,/Game/HotelSecurity/Anomaly/OldMotel/WhiteDoor_1F/BP_Chiar.BP_Chiar_C
+94,9,OldMotel,옛 모텔,Table,테이블,WhiteDoor 1F,흰문 1층,2445,-1340,0,0,0,0,2695,-1145,0,/Game/HotelSecurity/Anomaly/OldMotel/WhiteDoor_1F/BP_Table.BP_Table_C
+95,10,OldMotel,옛 모텔,Plant,식물,WhiteDoor 2F,흰문 2층,2440,-1345,405,0,0,-90,1980,-1130,405,/Game/HotelSecurity/Anomaly/OldMotel/WhiteDoor_2F/BP_Plant.BP_Plant_C
+96,11,OldMotel,옛 모텔,Table,테이블,WhiteDoor 2F,흰문 2층,2440,920,405,0,0,0,1870,750,405,/Game/HotelSecurity/Anomaly/OldMotel/WhiteDoor_2F/BP_Table.BP_Table_C
+97,12,OldMotel,옛 모텔,Sink,싱크대,WhiteDoor 2F,흰문 2층,1950,2035,515,0,0,180,1950,2035,685,/Game/HotelSecurity/Anomaly/OldMotel/WhiteDoor_2F/BP_Sink.BP_Sink_C
+98,13,OldMotel,옛 모텔,Bollard,볼라드,OutSide,외부,4020,960,0,0,0,0,-295,825,0,/Game/HotelSecurity/Anomaly/OldMotel/OutSide/BP_Bollard.BP_Bollard_C
+99,14,OldMotel,옛 모텔,Chiar,의자,OutSide,외부,240,2140,0,0,0,180,240,-1115,0,/Game/HotelSecurity/Anomaly/OldMotel/OutSide/BP_Chair.BP_Chair_C
+100,15,OldMotel,옛 모텔,Cone,고깔,OutSide,외부,95,-665,0,0,0,0,95,80,0,/Game/HotelSecurity/Anomaly/OldMotel/OutSide/BP_Cone.BP_Cone_C
+101,16,OldMotel,옛 모텔,Electrical Box,전기 관리함,OutSide,외부,-1290,3430,0,0,0,0,425,3430,0,/Game/HotelSecurity/Anomaly/OldMotel/OutSide/BP_ElectricalBox.BP_ElectricalBox_C
+102,17,OldMotel,옛 모텔,Ice Machine,얼음 기계,OutSide,외부,3445,2300,0,0,0,180,3870,2300,0,/Game/HotelSecurity/Anomaly/OldMotel/OutSide/BP_IceMachine.BP_IceMachine_C
+103,18,OldMotel,옛 모텔,Manhole,맨홀,OutSide,외부,4315,-1950,0,0,0,0,3745,-1105,0,/Game/HotelSecurity/Anomaly/OldMotel/OutSide/BP_Manhole.BP_Manhole_C
+104,19,OldMotel,옛 모텔,Motel Sign,모텔 간판,OutSide,외부,3165,1130,880,0,0,-90,3165,2740,880,/Game/HotelSecurity/Anomaly/OldMotel/OutSide/BP_MotelSign.BP_MotelSign_C
+105,20,OldMotel,옛 모텔,Trash Can,쓰레기통,OutSide,외부,1830,2840,0,0,0,0,1830,3185,0,/Game/HotelSecurity/Anomaly/OldMotel/OutSide/BP_TrashCan.BP_TrashCan_C
+106,21,OldMotel,옛 모텔,Car,자동차,OutSide,외부,-895,-2045,0,0,0,0,-220,-2045,0,/Game/HotelSecurity/Anomaly/OldMotel/OutSide/BP_Car.BP_Car_C

@@ -13,7 +13,7 @@ class HOTEL_SECURITY_API UHSSave_Clear : public USaveGame
 	GENERATED_BODY()
 
 public:
-	void LoadClearData(int32& ClearCount, bool& bHotel, bool& bMine, bool& bHospital);
+	void LoadClearData(int32& ClearCount, bool& bHotel, bool& bMine, bool& bHospital, bool& bOldMotel);
 	void SaveClearData(EMapType CurrentMap);
 	
 protected:
@@ -28,4 +28,7 @@ protected:
 
 	UPROPERTY(SaveGame)
 	bool bIsClearHospital;
+
+	UPROPERTY(SaveGame)
+	bool bIsClearOldMotel;
 };

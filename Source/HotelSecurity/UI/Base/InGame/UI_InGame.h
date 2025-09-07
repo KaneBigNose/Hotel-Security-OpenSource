@@ -4,7 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "UI/UI_Base.h"
+#include "Delegates/DelegateCombinations.h"
 #include "UI_InGame.generated.h"
+
+#pragma region Declare
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FChizizikOn, bool, bApply);
+
+#pragma endregion
 
 UCLASS(Meta = (DisableNativeTick))
 class HOTEL_SECURITY_API UUI_InGame : public UUI_Base
@@ -15,6 +22,7 @@ class HOTEL_SECURITY_API UUI_InGame : public UUI_Base
 
 protected:
 	virtual void NativeOnInitialized() override;
+	virtual void NativeDestruct() override;
 
 protected:
 	UPROPERTY()
@@ -112,7 +120,7 @@ protected:
 
 protected:
 	UFUNCTION()
-	void ShowReportingResult(FString SelectedLocation, FString SelectedObject, FString SelectedAnomaly);
+	void ShowReportingResult(FString SelectedPlace, FString SelectedObject, FString SelectedAnomaly);
 
 protected:
 	UPROPERTY(meta = (BindWidget))
@@ -122,6 +130,7 @@ protected:
 	TSubclassOf<class UUI_PopUp_Base> ResultClass;
 
 protected:
+	FTimerHandle ReportingTextHandle;
 	FTimerHandle AnimationHandle;
 
 	int32 TextIndex = 2;
@@ -130,6 +139,21 @@ protected:
 	FText PrintMessage2;
 	FText PrintMessage3;
 	FText PrintMessage4;
+
+#pragma endregion
+
+#pragma region Chizizik
+
+protected:
+	UFUNCTION()
+	void ChizizikEffect(bool bApply);
+
+public:
+	static FChizizikOn ChizizikOn;
+
+protected:
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<class URetainerBox> Chizizik;
 
 #pragma endregion
 

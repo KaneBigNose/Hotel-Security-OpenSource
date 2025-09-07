@@ -20,27 +20,7 @@ FReply UUI_PopUp_Base::NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEv
 {
 	const FKey Key = InKeyEvent.GetKey();
 
-	if (Key == EKeys::W || Key == EKeys::Up)
-	{
-		/*InputWidget_Up();
-		return FReply::Handled();*/
-	}
-	else if (Key == EKeys::S || Key == EKeys::Down)
-	{
-		/*InputWidget_Down();
-		return FReply::Handled();*/
-	}
-	else if (Key == EKeys::A || Key == EKeys::Left)
-	{
-		/*InputWidget_Left();
-		return FReply::Handled();*/
-	}
-	else if (Key == EKeys::D || Key == EKeys::Right)
-	{
-		/*InputWidget_Right();
-		return FReply::Handled();*/
-	}
-	else if (Key == EKeys::Enter)
+	if (Key == EKeys::Enter)
 	{
 		InputWidget_Enter();
 		return FReply::Handled();

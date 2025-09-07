@@ -1,6 +1,7 @@
 ﻿// Made by LSH
 
 #include "GameSystem/Subsystem/HSWorldSubsystem.h"
+#include "GameSystem/GameMode/HSGameMode.h"
 #include "GAS/AbilitySystemComponent/HSAbilitySystemComponent.h"
 #include "GAS/GameplayTag/HSGameplayTags.h"
 #include "Spawner/Anomaly/HSSpawner_Anomaly.h"
@@ -9,6 +10,7 @@
 #include "Data/Spawn/Anomaly/SpawnInfo_Anomaly.h"
 #include "Data/Spawn/Monster/SpawnInfo_Monster.h"
 #include "Player/Character/HSPlayer.h"
+#include "UI/PopUp/InGame/Report/UI_Report.h"
 
 #pragma region Base
 
@@ -19,6 +21,8 @@ void UHSWorldSubsystem::Deinitialize()
 		Spawner_Anomaly->Destroy();
 		Spawner_Monster->Destroy();
 	}
+
+	UUI_Report::bCanReport = true;
 
 	Super::Deinitialize();
 }
@@ -32,6 +36,10 @@ void UHSWorldSubsystem::MapSetting()
 
 	FTimerHandle WaitAnomalyEventHandle;
 	GetWorld()->GetTimerManager().SetTimer(WaitAnomalyEventHandle, this, &ThisClass::AnomalyEventTimer, WaitAnomalyDuration, false);
+
+	AHSGameMode* GameMode = GetWorld()->GetAuthGameMode<AHSGameMode>();
+	GameMode->TimeStop.RemoveDynamic(this, &ThisClass::StopAnomalyEvent);
+	GameMode->TimeStop.AddDynamic(this, &ThisClass::StopAnomalyEvent);
 }
 
 #pragma endregion
@@ -53,9 +61,9 @@ FSpawnInfo_Anomaly* UHSWorldSubsystem::GetAnomalyData(int32 RowNum, EMapType Cur
 	return (FSpawnInfo_Anomaly*)Spawner_Anomaly->GetObjectData(RowNum, CurrentMap);
 }
 
-FSpawnInfo_Anomaly* UHSWorldSubsystem::GetAnomalyData(FString TargetName)
+FSpawnInfo_Anomaly* UHSWorldSubsystem::GetAnomalyData(FString TargetName, FString TargetPlace)
 {
-	return (FSpawnInfo_Anomaly*)Spawner_Anomaly->GetObjectData(TargetName);
+	return (FSpawnInfo_Anomaly*)Spawner_Anomaly->GetObjectData(TargetName, TargetPlace);
 }
 
 FSpawnInfo_Monster* UHSWorldSubsystem::GetMonsterData(int32 RowNum, EMapType CurrentMap)
@@ -88,11 +96,21 @@ void UHSWorldSubsystem::SpawnMapSpawner()
 
 #pragma region Anomaly Event
 
+void UHSWorldSubsystem::StopAnomalyEvent(bool bIsStop)
+{
+	if (bIsStop)
+	{
+		GetWorld()->GetTimerManager().ClearTimer(AnomalyEventHandle);
+		return;
+	}
+
+	AnomalyEventTimer();
+}
+
 void UHSWorldSubsystem::AnomalyEventTimer()
 {
 	int32 RandomTime = FMath::RandRange(-20, 20);
 
-	FTimerHandle AnomalyEventHandle;
 	GetWorld()->GetTimerManager().SetTimer(AnomalyEventHandle, this, &ThisClass::StartAnomalyEvent, DefaultAnomalyDuration + RandomTime, false);
 }
 
